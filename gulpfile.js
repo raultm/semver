@@ -1,5 +1,7 @@
 var gulp = require('gulp');
+var execSync = require('exec-sync')
 
 gulp.task('default', function(){
-    console.log("Default Task");
+    var lastTag = execSync('git describe');
+    console.log(lastTag);
 });
