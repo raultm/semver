@@ -1,6 +1,7 @@
 {
   "devDependencies": {
     "gulp": "^3.6.2",
-    "exec-sync": "^0.1.6"
+    "exec-sync": "^0.1.6",
+    "prompt": "^0.2.13"
   }
 }
