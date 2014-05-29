@@ -24,7 +24,10 @@ Tasks
 7. Create new commit with these changes and add the tag.
 8. Maybe we can ask if the dev want to pull to a specific remote
 
+I started with gulpjs, but finally I realized that I don't need it, I can use only nodejs for my porpuse.
 
+Alfa version
 
+`node semver.js`
 
 
