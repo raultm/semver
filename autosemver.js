@@ -11,6 +11,13 @@ autosemver = {
             patch  : '0'
         }
     },
+    calculateNextVersion: function(tagObject){
+        var newTagObject = tagObject;
+        newTagObject.patch = parseInt(newTagObject.patch) + 1;
+        newTagObject.version = newTagObject.major + "." + newTagObject.minor + "." + newTagObject.patch;
+        newTagObject.tag = newTagObject.version;
+        return newTagObject;
+    },
     matchVersionTagFromGitDescribe: function(versionString){
 		if(!versionString) { return false; }
         var result = versionString.match(this.versionRegexPattern);

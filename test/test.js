@@ -47,5 +47,26 @@ describe('AutoSemver', function(){
         });
 
 
+    });
+
+    describe('calculateNextVersion', function(){
+        it('should increment patch number', function(){
+            var currentVersion = semver.getEmptyTagObject();
+            var tagObject = semver.calculateNextVersion(currentVersion);
+            assert.equal('1', tagObject.patch);
+        });
+
+        it('should handle patch modification in version', function(){
+            var currentVersion = semver.getEmptyTagObject();
+            var tagObject = semver.calculateNextVersion(currentVersion);
+            assert.equal('0.1.1', tagObject.version);
+        });
+
+        it('should handle version modification in tag', function(){
+            var currentVersion = semver.getEmptyTagObject();
+            var tagObject = semver.calculateNextVersion(currentVersion);
+            assert.equal('0.1.1', tagObject.tag);
+        });
+
     })
 })
