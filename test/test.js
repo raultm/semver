@@ -77,13 +77,25 @@ describe('AutoSemver', function(){
             assert.equal('0', tagObject.patch);
         });
 
-        it('should manage minor change and set patch to 0', function(){
+        it('should manage minor change and reset patch to 0', function(){
             var currentVersion = semver.getEmptyTagObject();
             currentVersion.patch = 4;
             var tagObject = semver.calculateNextVersion(currentVersion, semver.MINOR);
             assert.equal('2', tagObject.minor);
             assert.equal('0.2.0', tagObject.tag);
             assert.equal('0.2.0', tagObject.version);
+            assert.equal('0', tagObject.patch);
+        });
+
+        it('should manage major change, reseting minor & patch', function(){
+            var currentVersion = semver.getEmptyTagObject();
+            currentVersion.minor = 7;
+            currentVersion.patch = 7;
+            var tagObject = semver.calculateNextVersion(currentVersion, semver.MAJOR);
+            assert.equal('1.0.0', tagObject.tag);
+            assert.equal('1.0.0', tagObject.version);
+            assert.equal('1', tagObject.major);
+            assert.equal('0', tagObject.minor);
             assert.equal('0', tagObject.patch);
         });
 
