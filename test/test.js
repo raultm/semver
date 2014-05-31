@@ -72,7 +72,22 @@ describe('AutoSemver', function(){
             var currentVersion = semver.getEmptyTagObject();
             var tagObject = semver.calculateNextVersion(currentVersion, semver.MINOR);
             assert.equal('2', tagObject.minor);
+            assert.equal('0.2.0', tagObject.tag);
+            assert.equal('0.2.0', tagObject.version);
+            assert.equal('0', tagObject.patch);
         });
+
+        it('should manage minor change and set patch to 0', function(){
+            var currentVersion = semver.getEmptyTagObject();
+            currentVersion.patch = 4;
+            var tagObject = semver.calculateNextVersion(currentVersion, semver.MINOR);
+            assert.equal('2', tagObject.minor);
+            assert.equal('0.2.0', tagObject.tag);
+            assert.equal('0.2.0', tagObject.version);
+            assert.equal('0', tagObject.patch);
+        });
+
+
 
     })
 })

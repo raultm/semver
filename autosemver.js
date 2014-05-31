@@ -19,6 +19,7 @@ autosemver = {
         }
         if(typeOfNewVersion == this.MINOR){
             newTagObject.minor = parseInt(newTagObject.minor) + 1;
+            newTagObject.patch = 0;
         }
         newTagObject.version = newTagObject.major + "." + newTagObject.minor + "." + newTagObject.patch;
         newTagObject.tag = newTagObject.version;
