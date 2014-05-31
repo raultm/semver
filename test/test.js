@@ -1,5 +1,6 @@
 var assert = require("assert");
-var semver = require("../autosemver.js");
+var semver = require("../autosemver.js").autosemver;
+console.log(semver);
 
 describe('AutoSemver', function(){
   describe('matchTag', function(){
