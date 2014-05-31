@@ -2,6 +2,18 @@ var assert = require("assert");
 var semver = require("../autosemver.js").autosemver;
 
 describe('AutoSemver', function(){
+    describe('getEmptyTagObject', function(){
+        it('should return first version [0.1.0] propose by http://semver.org/ in the first question of the FAQ', function(){
+            var tagObject = semver.getEmptyTagObject()
+            assert.equal('0.1.0', tagObject.tag);
+            assert.equal('0.1.0', tagObject.version);
+            assert.equal('0', tagObject.major);
+            assert.equal('1', tagObject.minor);
+            assert.equal('0', tagObject.patch);
+        });
+    });
+
+
     describe('matchVersionTagFromGitDescribe', function(){
         it('should return false when empty value', function(){
             assert.equal('', semver.matchVersionTagFromGitDescribe());
