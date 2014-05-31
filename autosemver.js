@@ -1,7 +1,8 @@
 autosemver = {
 	
-	matchTag: function(){
-		return false;
+	matchTag: function(versionString){
+		if(!versionString) { return false; }
+		return versionString;
 	}
 }
 
