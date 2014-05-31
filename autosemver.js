@@ -1,5 +1,6 @@
 autosemver = {
 
+    MINOR: 'm',
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
     getEmptyTagObject: function(){
@@ -11,9 +12,14 @@ autosemver = {
             patch  : '0'
         }
     },
-    calculateNextVersion: function(tagObject){
+    calculateNextVersion: function(tagObject, typeOfNewVersion){
         var newTagObject = tagObject;
-        newTagObject.patch = parseInt(newTagObject.patch) + 1;
+        if(!typeOfNewVersion){
+            newTagObject.patch = parseInt(newTagObject.patch) + 1;
+        }
+        if(typeOfNewVersion == this.MINOR){
+            newTagObject.minor = parseInt(newTagObject.minor) + 1;
+        }
         newTagObject.version = newTagObject.major + "." + newTagObject.minor + "." + newTagObject.patch;
         newTagObject.tag = newTagObject.version;
         return newTagObject;

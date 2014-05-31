@@ -68,5 +68,11 @@ describe('AutoSemver', function(){
             assert.equal('0.1.1', tagObject.tag);
         });
 
+        it('should manage minor change', function(){
+            var currentVersion = semver.getEmptyTagObject();
+            var tagObject = semver.calculateNextVersion(currentVersion, semver.MINOR);
+            assert.equal('2', tagObject.minor);
+        });
+
     })
 })
