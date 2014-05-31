@@ -2,7 +2,7 @@ autosemver = {
 
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
-    matchTagFromGitDescribe: function(versionString){
+    matchVersionTagFromGitDescribe: function(versionString){
 		if(!versionString) { return false; }
         var result = versionString.match(this.versionRegexPattern);
         var tag = {
