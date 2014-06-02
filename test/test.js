@@ -1,5 +1,6 @@
 var assert = require("assert");
 var semver = require("../autosemver.js").autosemver;
+var exec = require('sync-exec')
 
 describe('AutoSemver', function(){
     describe('getEmptyTagObject', function(){
@@ -101,5 +102,19 @@ describe('AutoSemver', function(){
 
 
 
-    })
+    });
+
+    describe('getLastTag', function(){
+        it('should return false if no tag is founded', function(){
+
+            exec('rm -rf dummyproject'      , {cwd: '/tmp'});
+            exec('mkdir dummyproject'       , {cwd: '/tmp'});
+            console.log(exec('git init'     , {cwd: '/tmp/dummyproject'}));
+            console.log(exec('git status'   , {cwd: '/tmp/dummyproject'}));
+            console.log(exec('echo Here is some text > test.txt'   , {cwd: '/tmp/dummyproject'}));
+            console.log(exec('git add .'     , {cwd: '/tmp/dummyproject'}));
+            console.log(exec('git commit -m "message" '   , {cwd: '/tmp/dummyproject'}));
+            console.log(exec('git plog'     , {cwd: '/tmp/dummyproject'}));
+        });
+    });
 })
