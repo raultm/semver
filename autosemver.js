@@ -1,3 +1,5 @@
+var exec = require('sync-exec');
+
 autosemver = {
 
     MINOR: 'm',
@@ -43,7 +45,13 @@ autosemver = {
             patch  : result[5]
         }
 		return tag;
-	}
+	},
+    getLastTag: function(cwd){
+        // Set --long . Problems if sometimes long and sometimes short
+        var execReturn = exec('git describe --long', {cwd: cwd});
+        if(execReturn.status == 128){ return false;}
+        return this.matchVersionTagFromGitDescribe(execReturn.stdout.replace("\n", ""));
+    }
 }
 
 exports.autosemver = autosemver;

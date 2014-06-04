@@ -105,16 +105,38 @@ describe('AutoSemver', function(){
     });
 
     describe('getLastTag', function(){
-        it('should return false if no tag is founded', function(){
+        var tmpPath = '/tmp';
+        var dummyName = 'dummyproject';
+        var projectPath  = tmpPath + "/" + dummyName;
+        beforeEach(function(){
+            exec('rm -rf ' + dummyName  , {cwd: tmpPath});
+            exec('mkdir ' + dummyName   , {cwd: tmpPath});
+            exec('git init'             , {cwd: projectPath});
+            exec('git status'           , {cwd: projectPath});
+            exec('echo text > test.txt' , {cwd: projectPath});
+            exec('git add .'            , {cwd: projectPath});
+            exec('git commit -m "First"', {cwd: projectPath});
+            //exec('git tag v0.1.0 -m "First Beta release"'     , {cwd: '/tmp/dummyproject'});
+        })
 
-            exec('rm -rf dummyproject'      , {cwd: '/tmp'});
-            exec('mkdir dummyproject'       , {cwd: '/tmp'});
-            console.log(exec('git init'     , {cwd: '/tmp/dummyproject'}));
-            console.log(exec('git status'   , {cwd: '/tmp/dummyproject'}));
-            console.log(exec('echo Here is some text > test.txt'   , {cwd: '/tmp/dummyproject'}));
-            console.log(exec('git add .'     , {cwd: '/tmp/dummyproject'}));
-            console.log(exec('git commit -m "message" '   , {cwd: '/tmp/dummyproject'}));
-            console.log(exec('git plog'     , {cwd: '/tmp/dummyproject'}));
+        it('should return false if no tag is founded', function(){
+            assert.equal(false, semver.getLastTag(projectPath));
+        });
+
+        it('should return tag if exists at least one', function(){
+            exec('git tag v0.1.0 -m "First Beta"' , {cwd: projectPath});
+            var tagObject = semver.getLastTag(projectPath);
+            assert.equal('v0.1.0', tagObject.tag);
+        });
+
+        it('should return last tag if exists at least two', function(){
+            exec('git tag v0.1.0 -m "1st"' , {cwd: projectPath});
+            exec('echo text > test2.txt'   , {cwd: projectPath});
+            exec('git add .'               , {cwd: projectPath});
+            exec('git commit -m "Second"'  , {cwd: projectPath});
+            exec('git tag v0.1.1 -m "2nd"' , {cwd: projectPath});
+            var tagObject = semver.getLastTag(projectPath);
+            assert.equal('v0.1.1', tagObject.tag);
         });
     });
 })
