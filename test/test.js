@@ -139,4 +139,11 @@ describe('AutoSemver', function(){
             assert.equal('v0.1.1', tagObject.tag);
         });
     });
+
+    describe('set up Travis', function(){
+        it('should enter in Travis and fail', function(){
+            assert.equal(true, false);
+        });
+
+    });
 })
