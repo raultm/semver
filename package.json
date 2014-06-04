@@ -5,5 +5,8 @@
     "prompt": "^0.2.13",
     "mocha": "^1.20.0",
     "sync-exec": "^0.3.2"
-  }
+  },
+    "scripts": {
+        "test": "mocha -R spec"
+    }
 }
