@@ -4,4 +4,4 @@ node_js:
   
 before_script:
   - npm install
-  - sed -i '' s/describe\(\'getLastTag\'/xdescribe\(\'getLastTag\'/ test/test.js
+  - sed -i s/describe\(\'getLastTag\'/xdescribe\(\'getLastTag\'/ test/test.js

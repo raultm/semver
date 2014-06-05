@@ -104,7 +104,7 @@ describe('AutoSemver', function(){
 
     });
 
-    xdescribe('getLastTag', function(){
+    describe('getLastTag', function(){
         var tmpPath = '/tmp';
         var dummyName = 'dummyproject';
         var projectPath  = tmpPath + "/" + dummyName;
