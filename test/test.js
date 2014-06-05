@@ -104,7 +104,7 @@ describe('AutoSemver', function(){
 
     });
 
-    describe('getLastTag', function(){
+    xdescribe('getLastTag', function(){
         var tmpPath = '/tmp';
         var dummyName = 'dummyproject';
         var projectPath  = tmpPath + "/" + dummyName;
@@ -140,10 +140,4 @@ describe('AutoSemver', function(){
         });
     });
 
-    describe('set up Travis', function(){
-        it('should enter in Travis and fail', function(){
-            assert.equal(true, false);
-        });
-
-    });
 })
