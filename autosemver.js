@@ -64,8 +64,10 @@ autosemver = {
         fs.writeFileSync(cwd + "/" + "VERSION", tagObject.tag);
         return true;
     },
-    applyNewTag: function(){
-
+    applyNewTag: function(cwd, tagObject){
+        if(!cwd || !tagObject){ return false; }
+        this.updateVersionFile(cwd, tagObject);
+        return true;
     }
 }
 

@@ -3,6 +3,10 @@ var semver = require("../autosemver.js").autosemver;
 var exec = require('sync-exec');
 var sinon = require('sinon')
 
+var tmpPath = '/tmp';
+var dummyName = 'dummyproject';
+var projectPath  = tmpPath + "/" + dummyName;
+
 describe('AutoSemver', function(){
 
     describe('getEmptyTagObject', function(){
@@ -107,9 +111,6 @@ describe('AutoSemver', function(){
     });
 
     describe('getLastTag', function(){
-        var tmpPath = '/tmp';
-        var dummyName = 'dummyproject';
-        var projectPath  = tmpPath + "/" + dummyName;
         beforeEach(function(){
             exec('rm -rf ' + dummyName  , {cwd: tmpPath});
             exec('mkdir ' + dummyName   , {cwd: tmpPath});
@@ -167,9 +168,6 @@ describe('AutoSemver', function(){
     });
 
     describe('updateVersionFile', function(){
-        var tmpPath = '/tmp';
-        var dummyName = 'dummyproject';
-        var projectPath  = tmpPath + "/" + dummyName;
         beforeEach(function(){
             exec('rm -rf ' + dummyName  , {cwd: tmpPath});
             exec('mkdir ' + dummyName   , {cwd: tmpPath});
@@ -192,6 +190,31 @@ describe('AutoSemver', function(){
         });
 
 
-    })
+    });
+
+    describe('applyNewTag', function(){
+        it('should return false if no cwd Provided', function(){
+            assert.equal(false, semver.applyNewTag());
+        });
+
+        it('should return false if no tagObject Provided', function(){
+            assert.equal(false, semver.applyNewTag(projectPath));
+        });
+
+        it('should notify all process was ok', function(){
+            var tagObject = semver.getEmptyTagObject();
+            assert.equal(true, semver.applyNewTag(projectPath, tagObject));
+        });
+
+        it('should call updateVersionFile', function(){
+            var tagObject = semver.getEmptyTagObject();
+            var updateVersionFileStub = sinon.stub(semver, "updateVersionFile", function(){ return true; });
+            semver.applyNewTag(projectPath, tagObject);
+            assert.equal(true       , updateVersionFileStub.calledOnce);
+            assert.equal(projectPath, updateVersionFileStub.lastCall.args[0]);
+            assert.equal(tagObject  , updateVersionFileStub.lastCall.args[1]);
+        });
+
+    });
 
 })
