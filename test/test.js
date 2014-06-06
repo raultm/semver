@@ -143,8 +143,13 @@ describe('AutoSemver', function(){
 
     describe('run', function(){
         it('should call getLastTag', function(){
-            // http://sinonjs.org/docs/
             var spy = sinon.spy(semver, "getLastTag");
+            semver.run();
+            assert.equal(spy.calledOnce, true);
+        });
+
+        it('should call calculateNextVersion', function(){
+            var spy = sinon.spy(semver, "calculateNextVersion");
             semver.run();
             assert.equal(spy.calledOnce, true);
         });

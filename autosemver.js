@@ -8,6 +8,7 @@ autosemver = {
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
     run: function(){
         var tagObject = this.getLastTag();
+        this.calculateNextVersion(tagObject);
     },
     getEmptyTagObject: function(){
         return {
