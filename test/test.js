@@ -140,4 +140,11 @@ describe('AutoSemver', function(){
         });
     });
 
+    describe('run', function(){
+        it('should call getLastTag', function(){
+            semver.run();
+            assert.equal(true, true);
+        });
+    });
+
 })

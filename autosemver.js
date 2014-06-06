@@ -6,6 +6,8 @@ autosemver = {
     MAJOR: 'M',
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
+    run: function(){
+    },
     getEmptyTagObject: function(){
         return {
             tag    : '0.1.0',
