@@ -7,10 +7,11 @@ autosemver = {
     MAJOR: 'M',
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
-    run: function(){
-        var tagObject = this.getLastTag();
+    run: function(cwd){
+        if(!cwd){ return false; }
+        var tagObject = this.getLastTag(cwd);
         this.calculateNextVersion(tagObject);
-        this.applyNewTag();
+        this.applyNewTag(cwd);
     },
     getEmptyTagObject: function(){
         return {
