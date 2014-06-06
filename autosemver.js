@@ -1,4 +1,5 @@
 var exec = require('sync-exec');
+var fs = require('fs');
 
 autosemver = {
 
@@ -55,6 +56,11 @@ autosemver = {
         var execReturn = exec('git describe --long', {cwd: cwd});
         if(execReturn.status == 128){ return false;}
         return this.matchVersionTagFromGitDescribe(execReturn.stdout.replace("\n", ""));
+    },
+    updateVersionFile: function(cwd, tagObject, callback){
+        if(!cwd || !tagObject){ return false; }
+        if(!tagObject.tag){ return false; }
+        fs.writeFile(cwd + "/" + "VERSION", tagObject.tag, callback);
     }
 }
 

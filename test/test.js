@@ -4,6 +4,7 @@ var exec = require('sync-exec');
 var sinon = require('sinon')
 
 describe('AutoSemver', function(){
+
     describe('getEmptyTagObject', function(){
         it('should return first version [0.1.0] propose by http://semver.org/ in the first question of the FAQ', function(){
             var tagObject = semver.getEmptyTagObject()
@@ -143,9 +144,13 @@ describe('AutoSemver', function(){
 
     describe('run', function(){
         it('should call getLastTag', function(){
-            var spy = sinon.spy(semver, "getLastTag");
+            var getLastTagStub = sinon.stub(semver, "getLastTag", function(){
+                tagObject = semver.getEmptyTagObject();
+                tagObject.tag = "raulete";
+                return tagObject;
+            });
             semver.run();
-            assert.equal(spy.calledOnce, true);
+            assert.equal(getLastTagStub.calledOnce, true);
         });
 
         it('should call calculateNextVersion', function(){
@@ -154,5 +159,37 @@ describe('AutoSemver', function(){
             assert.equal(spy.calledOnce, true);
         });
     });
+
+    describe('updateVersionFile', function(){
+        var tmpPath = '/tmp';
+        var dummyName = 'dummyproject';
+        var projectPath  = tmpPath + "/" + dummyName;
+        beforeEach(function(){
+            exec('rm -rf ' + dummyName  , {cwd: tmpPath});
+            exec('mkdir ' + dummyName   , {cwd: tmpPath});
+        })
+
+        it('should return false if no cwd', function(){
+            assert.equal(false, semver.updateVersionFile());
+        });
+
+        it('should return false if no tagObject.tag', function(){
+            assert.equal(false, semver.updateVersionFile(projectPath));
+        });
+
+        it('should write VERSION file with new tag', function(done){
+            tag = 'v3.4.5beta'
+            tagObject = { tag: tag};
+            callback = function(err){
+                tagInFile = exec('cat VERSION', {cwd: projectPath});
+                assert.equal(tag, tagInFile.stdout);
+                done();
+            }
+            semver.updateVersionFile(projectPath, tagObject, callback)
+
+        });
+
+
+    })
 
 })
