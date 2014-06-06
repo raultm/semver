@@ -1,5 +1,6 @@
 SEMI AUTO SEMVER
 ----------------
+[![Build Status](https://travis-ci.org/raultm/semver.svg?branch=master)](https://travis-ci.org/raultm/semver)
 
 The idea is to manage semi automatically the versioning of a software product. 
 
