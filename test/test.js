@@ -158,6 +158,12 @@ describe('AutoSemver', function(){
             semver.run();
             assert.equal(spy.calledOnce, true);
         });
+
+        it('should call applyNewTag', function(){
+            var spy = sinon.spy(semver, "applyNewTag");
+            semver.run();
+            assert.equal(spy.calledOnce, true);
+        });
     });
 
     describe('updateVersionFile', function(){

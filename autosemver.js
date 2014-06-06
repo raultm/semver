@@ -10,6 +10,7 @@ autosemver = {
     run: function(){
         var tagObject = this.getLastTag();
         this.calculateNextVersion(tagObject);
+        this.applyNewTag();
     },
     getEmptyTagObject: function(){
         return {
@@ -60,7 +61,11 @@ autosemver = {
     updateVersionFile: function(cwd, tagObject){
         if(!cwd || !tagObject){ return false; }
         if(!tagObject.tag){ return false; }
-        return fs.writeFileSync(cwd + "/" + "VERSION", tagObject.tag);
+        fs.writeFileSync(cwd + "/" + "VERSION", tagObject.tag);
+        return true;
+    },
+    applyNewTag: function(){
+
     }
 }
 
