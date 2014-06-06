@@ -57,10 +57,10 @@ autosemver = {
         if(execReturn.status == 128){ return false;}
         return this.matchVersionTagFromGitDescribe(execReturn.stdout.replace("\n", ""));
     },
-    updateVersionFile: function(cwd, tagObject, callback){
+    updateVersionFile: function(cwd, tagObject){
         if(!cwd || !tagObject){ return false; }
         if(!tagObject.tag){ return false; }
-        fs.writeFile(cwd + "/" + "VERSION", tagObject.tag, callback);
+        return fs.writeFileSync(cwd + "/" + "VERSION", tagObject.tag);
     }
 }
 

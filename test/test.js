@@ -177,16 +177,12 @@ describe('AutoSemver', function(){
             assert.equal(false, semver.updateVersionFile(projectPath));
         });
 
-        it('should write VERSION file with new tag', function(done){
-            tag = 'v3.4.5beta'
+        it('should write VERSION file with new tag', function(){
+            tag = 'v3.4.5betaa'
             tagObject = { tag: tag};
-            callback = function(err){
-                tagInFile = exec('cat VERSION', {cwd: projectPath});
-                assert.equal(tag, tagInFile.stdout);
-                done();
-            }
-            semver.updateVersionFile(projectPath, tagObject, callback)
-
+            semver.updateVersionFile(projectPath, tagObject);
+            cat = exec("cat " + projectPath + "/VERSION");
+            assert.equal(tag, cat.stdout);
         });
 
 
