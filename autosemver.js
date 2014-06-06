@@ -7,6 +7,7 @@ autosemver = {
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
     run: function(){
+        var tagObject = this.getLastTag();
     },
     getEmptyTagObject: function(){
         return {

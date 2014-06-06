@@ -1,6 +1,7 @@
 var assert = require("assert");
 var semver = require("../autosemver.js").autosemver;
-var exec = require('sync-exec')
+var exec = require('sync-exec');
+var sinon = require('sinon')
 
 describe('AutoSemver', function(){
     describe('getEmptyTagObject', function(){
@@ -142,8 +143,10 @@ describe('AutoSemver', function(){
 
     describe('run', function(){
         it('should call getLastTag', function(){
+            // http://sinonjs.org/docs/
+            var spy = sinon.spy(semver, "getLastTag");
             semver.run();
-            assert.equal(true, true);
+            assert.equal(spy.calledOnce, true);
         });
     });
 

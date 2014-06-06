@@ -4,9 +4,10 @@
     "exec-sync": "^0.1.6",
     "prompt": "^0.2.13",
     "mocha": "^1.20.0",
-    "sync-exec": "^0.3.2"
+    "sync-exec": "^0.3.2",
+    "sinon": "^1.10.2"
   },
-    "scripts": {
-        "test": "mocha -R spec"
-    }
+  "scripts": {
+    "test": "mocha -R spec"
+  }
 }
