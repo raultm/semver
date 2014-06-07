@@ -184,6 +184,7 @@ describe('AutoSemver', function(){
 
         it('should notify all process was ok', function(){
             var tagObject = semver.getEmptyTagObject();
+            var updateVersionFileStub = sinon.stub(semver, "updateVersionFile", function(){ return true; });
             assert.equal(true, semver.applyNewTag(projectPath, tagObject));
         });
 
