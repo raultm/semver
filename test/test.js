@@ -1,13 +1,19 @@
 var assert = require("assert");
-var semver = require("../autosemver.js").autosemver;
+var semverBase = require("../autosemver.js").autosemver;
 var exec = require('sync-exec');
 var sinon = require('sinon')
+var extend = require('util')._extend;
+var semver;
 
 var tmpPath = '/tmp';
 var dummyName = 'dummyproject';
 var projectPath  = tmpPath + "/" + dummyName;
 
 describe('AutoSemver', function(){
+
+    beforeEach(function(){
+        semver = extend({}, semverBase);
+    })
 
     describe('getEmptyTagObject', function(){
         it('should return first version [0.1.0] propose by http://semver.org/ in the first question of the FAQ', function(){
@@ -193,33 +199,37 @@ describe('AutoSemver', function(){
     });
 
     describe('run', function(){
+        var getLastTagStub;
+        var calculateNextVersionSpy;
+        var applyNewTagStub;
+        beforeEach(function(){
+            getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
+            calculateNextVersionSpy = sinon.spy(semver, "calculateNextVersion");
+            applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
+        })
+
         it('should return false if no cwd', function(){
             assert.equal(false, semver.run());
         });
         it('should call getLastTag with cwd', function(){
-            var getLastTagStub = sinon.spy(semver, "getLastTag");
             semver.run(projectPath);
             assert.equal(true       , getLastTagStub.calledOnce);
             assert.equal(projectPath, getLastTagStub.lastCall.args[0]);
         });
 
-//        it('should call calculateNextVersion with tagObject', function(){
-//            var tagObject = semver.getEmptyTagObject();
-//            var calculateNextVersionStub = sinon.spy(semver, "calculateNextVersion");
-//            semver.run(projectPath);
-//            console.log(calculateNextVersionStub.lastCall.args);
-//            assert.equal(true, calculateNextVersionStub.calledOnce);
-//            assert.equal(tagObject.tag, calculateNextVersionStub.lastCall.args[0].tag);
-//        });
-//
-//        it('should call applyNewTag with cwd and tagObject', function(){
-//            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
-//            var applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
-//            semver.run(projectPath);
-//            assert.equal(true, applyNewTagStub.calledOnce);
-//            assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
-//            assert.equal(newTagObject, applyNewTagStub.lastCall.args[1]);
-//        });
+        it('should call calculateNextVersion with tagObject', function(){
+            semver.run(projectPath);
+            assert.equal(true, calculateNextVersionSpy.calledOnce);
+            assert.equal(semver.getEmptyTagObject().tag, calculateNextVersionSpy.lastCall.args[0].tag);
+        });
+
+        it('should call applyNewTag with cwd and tagObject', function(){
+            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
+            semver.run(projectPath);
+            assert.equal(true, applyNewTagStub.calledOnce);
+            assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
+            assert.equal(newTagObject.tag, applyNewTagStub.lastCall.args[1].tag);
+        });
     });
 
 

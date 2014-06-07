@@ -1,5 +1,6 @@
 var exec = require('sync-exec');
 var fs = require('fs');
+var extend = require('util')._extend;
 
 autosemver = {
 
@@ -10,8 +11,8 @@ autosemver = {
     run: function(cwd){
         if(!cwd){ return false; }
         var tagObject = this.getLastTag(cwd);
-        this.calculateNextVersion(tagObject);
-        this.applyNewTag(cwd);
+        var newTagObject = this.calculateNextVersion(tagObject);
+        this.applyNewTag(cwd, newTagObject);
     },
     getEmptyTagObject: function(){
         return {
@@ -23,7 +24,7 @@ autosemver = {
         }
     },
     calculateNextVersion: function(tagObject, typeOfNewVersion){
-        var newTagObject = tagObject;
+        var newTagObject = extend({}, tagObject);
         if(!typeOfNewVersion){
             newTagObject.patch = parseInt(newTagObject.patch) + 1;
         }
