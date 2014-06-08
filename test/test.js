@@ -207,6 +207,7 @@ describe('AutoSemver', function(){
             getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
             calculateNextVersionSpy = sinon.spy(semver, "calculateNextVersion");
             applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
+            releaseNewTagStub = sinon.spy(semver, "releaseNewTag", function(){ return true; });
         })
 
         it('should return false if no cwd', function(){
@@ -230,6 +231,12 @@ describe('AutoSemver', function(){
             assert.equal(true, applyNewTagStub.calledOnce);
             assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
             assert.equal(newTagObject.tag, applyNewTagStub.lastCall.args[1].tag);
+        });
+
+        it('should call releaseNewTag', function(){
+            semver.run(projectPath);
+            assert.equal(true, releaseNewTagStub.calledOnce);
+            assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
         });
     });
 

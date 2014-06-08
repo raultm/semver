@@ -13,6 +13,7 @@ autosemver = {
         var tagObject = this.getLastTag(cwd);
         var newTagObject = this.calculateNextVersion(tagObject);
         this.applyNewTag(cwd, newTagObject);
+        this.releaseNewTag(cwd);
     },
     getEmptyTagObject: function(){
         return {
@@ -69,6 +70,9 @@ autosemver = {
     applyNewTag: function(cwd, tagObject){
         if(!cwd || !tagObject){ return false; }
         this.updateVersionFile(cwd, tagObject);
+        return true;
+    },
+    releaseNewTag: function(cwd){
         return true;
     }
 }
