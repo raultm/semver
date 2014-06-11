@@ -73,7 +73,12 @@ autosemver = {
         return true;
     },
     releaseNewTag: function(cwd){
-        return true;
+        this.exec('git add VERSION', {cwd: cwd});
+        this.exec('git commit -m "New Release"', {cwd: cwd});
+        return false;
+    },
+    exec: function(cmd, cwd){
+        return exec(cmd, {cwd: cwd});
     }
 }
 

@@ -199,6 +199,32 @@ describe('AutoSemver', function(){
 
     });
 
+    describe('releaseNewTag', function() {
+        var execSpy;
+        beforeEach(function(){
+            exec('rm -rf ' + dummyName  , {cwd: tmpPath});
+            exec('mkdir ' + dummyName   , {cwd: tmpPath});
+            exec('git init'             , {cwd: projectPath});
+            exec('git status'           , {cwd: projectPath});
+            exec('echo text > test.txt' , {cwd: projectPath});
+            exec('git add .'            , {cwd: projectPath});
+            exec('git commit -m "First"', {cwd: projectPath});
+            exec('git tag v0.1.0 -m "First Beta release"'     , {cwd: '/tmp/dummyproject'});
+            execSpy = sinon.spy(semver, "exec");
+        });
+
+        it('should return false if no cwd', function(){
+            assert.equal(false, semver.releaseNewTag());
+        });
+
+        it('should create add/commit VERSION file to git repo ', function(){
+            semver.releaseNewTag(projectPath);
+            assert.equal(2, execSpy.callCount);
+            assert.equal('git add VERSION', execSpy.args[0][0]);
+            assert.equal('git commit -m "New Release"', execSpy.args[1][0]);
+        });
+    });
+
     describe('run', function(){
         var getLastTagStub;
         var calculateNextVersionSpy;
