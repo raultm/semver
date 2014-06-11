@@ -18,12 +18,16 @@ Tasks
 -----
 1. Get the last tag version `git describe`
 2. Handle the version with regex `/^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/` [regex checker](http://regex101.com/r/fT7bX6)
-3. Ask if the new version is major, minor or patch (prompt?)
+3. Ask if the new version is major, minor or patch (prompt? No, finally must be an arg)
 4. Check README. If no diff encourage to fill in if major/minor
 5. Check if exists Changelog, if no diff encourage to fill in if major/minor/patch. Maybe use commit messages as version changelof.
 6. Add or modify a file VERSION with the new version. The dev can use this in his/her product.
 7. Create new commit with these changes and add the tag.
 8. Maybe we can ask if the dev want to pull to a specific remote
+
+CLI
+----
+Think in same behaviour that gulp, CLI. Install from npm with -g. This way the script may be called from anywhere
 
 I started with gulpjs, but finally I realized that I don't need it, I can use only nodejs for my porpuse.
 
