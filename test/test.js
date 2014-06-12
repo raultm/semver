@@ -266,10 +266,12 @@ describe('AutoSemver', function(){
             assert.equal(newTagObject.tag, applyNewTagStub.lastCall.args[1].tag);
         });
 
-        it('should call releaseNewTag', function(){
+        it('should call releaseNewTag with cwd and tagObject', function(){
+            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
             semver.run(projectPath);
             assert.equal(true, releaseNewTagStub.calledOnce);
-            assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
+            assert.equal(projectPath, releaseNewTagStub.lastCall.args[0]);
+            assert.equal(newTagObject.tag, releaseNewTagStub.lastCall.args[1].tag);
         });
     });
 

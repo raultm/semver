@@ -13,7 +13,7 @@ autosemver = {
         var tagObject = this.getLastTag(cwd);
         var newTagObject = this.calculateNextVersion(tagObject);
         this.applyNewTag(cwd, newTagObject);
-        this.releaseNewTag(cwd);
+        this.releaseNewTag(cwd, newTagObject);
     },
     getEmptyTagObject: function(){
         return {
