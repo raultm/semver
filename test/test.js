@@ -209,7 +209,8 @@ describe('AutoSemver', function(){
             exec('echo text > test.txt' , {cwd: projectPath});
             exec('git add .'            , {cwd: projectPath});
             exec('git commit -m "First"', {cwd: projectPath});
-            exec('git tag v0.1.0 -m "First Beta release"'     , {cwd: '/tmp/dummyproject'});
+            exec('git tag v0.1.0 -m "First Beta release"', {cwd: projectPath});
+            exec('echo v0.1.1 > VERSION.md' , {cwd: projectPath});
             execSpy = sinon.spy(semver, "exec");
         });
 
@@ -217,11 +218,19 @@ describe('AutoSemver', function(){
             assert.equal(false, semver.releaseNewTag());
         });
 
+        it('should return false if no tagObject', function(){
+            assert.equal(false, semver.releaseNewTag(projectPath));
+        });
+
         it('should create add/commit VERSION file to git repo ', function(){
-            semver.releaseNewTag(projectPath);
-            assert.equal(2, execSpy.callCount);
-            assert.equal('git add VERSION', execSpy.args[0][0]);
+            semver.exec("git status", projectPath);
+            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
+            assert.equal(true, semver.releaseNewTag(projectPath, newTagObject));
+            console.log(execSpy);
+            assert.equal(3, execSpy.callCount);
+            assert.equal('git add .', execSpy.args[0][0]);
             assert.equal('git commit -m "New Release"', execSpy.args[1][0]);
+            assert.equal(0, execSpy.args[2][0].indexOf("git tag " + newTagObject.tag));
         });
     });
 

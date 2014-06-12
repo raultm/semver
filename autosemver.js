@@ -72,10 +72,13 @@ autosemver = {
         this.updateVersionFile(cwd, tagObject);
         return true;
     },
-    releaseNewTag: function(cwd){
-        this.exec('git add VERSION', {cwd: cwd});
+    releaseNewTag: function(cwd, newTagObject){
+        if(!cwd || !newTagObject){ return false; }
+        var tagCommand = "git tag " + newTagObject.tag + " -m 'New Release " + newTagObject.tag + "'";
+        this.exec('git add .', {cwd: cwd});
         this.exec('git commit -m "New Release"', {cwd: cwd});
-        return false;
+        this.exec(tagCommand, {cwd: cwd});
+        return true;
     },
     exec: function(cmd, cwd){
         return exec(cmd, {cwd: cwd});
