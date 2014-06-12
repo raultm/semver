@@ -1,5 +1,5 @@
 var assert = require("assert");
-var semverBase = require("../autosemver.js").autosemver;
+var semverBase = require("../index.js").autosemver;
 var exec = require('sync-exec');
 var sinon = require('sinon')
 var extend = require('util')._extend;

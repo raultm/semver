@@ -9,5 +9,34 @@
   },
   "scripts": {
     "test": "mocha -R spec"
-  }
+  },
+  "name": "semver",
+  "description": "SEMI AUTO SEMVER ---------------- [![Build Status](https://travis-ci.org/raultm/semver.svg?branch=master)](https://travis-ci.org/raultm/semver)",
+  "version": "0.1.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "prompt": "~0.2.13",
+    "sinon": "~1.10.2",
+    "gulp": "~3.7.0",
+    "exec-sync": "~0.1.6",
+    "sync-exec": "~0.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/raultm/semver.git"
+  },
+  "keywords": [
+    "semver",
+    "auto",
+    "git"
+  ],
+  "author": "raultm@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/raultm/semver/issues"
+  },
+  "homepage": "https://github.com/raultm/semver"
 }
