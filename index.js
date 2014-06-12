@@ -85,4 +85,6 @@ autosemver = {
     }
 }
 
-exports.autosemver = autosemver;
+module.exports = (function(){
+    return autosemver;
+})();
