@@ -209,8 +209,8 @@ describe('AutoSemver', function(){
             exec('echo text > test.txt' , {cwd: projectPath});
             exec('git add .'            , {cwd: projectPath});
             exec('git commit -m "First"', {cwd: projectPath});
-            exec('git tag v0.1.0 -m "First Beta release"', {cwd: projectPath});
-            exec('echo v0.1.1 > VERSION.md' , {cwd: projectPath});
+            exec('git tag 0.1.0 -m "First Beta release"', {cwd: projectPath});
+            exec('echo v0.1.1 > VERSION' , {cwd: projectPath});
             execSpy = sinon.spy(semver, "exec");
         });
 
@@ -223,12 +223,10 @@ describe('AutoSemver', function(){
         });
 
         it('should create add/commit VERSION file to git repo ', function(){
-            semver.exec("git status", projectPath);
             var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
             assert.equal(true, semver.releaseNewTag(projectPath, newTagObject));
-            console.log(execSpy);
             assert.equal(3, execSpy.callCount);
-            assert.equal('git add .', execSpy.args[0][0]);
+            assert.equal('git add VERSION', execSpy.args[0][0]);
             assert.equal('git commit -m "New Release"', execSpy.args[1][0]);
             assert.equal(0, execSpy.args[2][0].indexOf("git tag " + newTagObject.tag));
         });

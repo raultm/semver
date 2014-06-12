@@ -75,9 +75,9 @@ autosemver = {
     releaseNewTag: function(cwd, newTagObject){
         if(!cwd || !newTagObject){ return false; }
         var tagCommand = "git tag " + newTagObject.tag + " -m 'New Release " + newTagObject.tag + "'";
-        this.exec('git add .', {cwd: cwd});
-        this.exec('git commit -m "New Release"', {cwd: cwd});
-        this.exec(tagCommand, {cwd: cwd});
+        this.exec('git add VERSION', cwd);
+        this.exec('git commit -m "New Release"', cwd);
+        this.exec(tagCommand, cwd);
         return true;
     },
     exec: function(cmd, cwd){
