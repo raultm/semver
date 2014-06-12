@@ -7,5 +7,5 @@ before_script:
   - sed -i s/describe\(\'getLastTag\'/xdescribe\(\'getLastTag\'/ test/test.js
   - sed -i s/describe\(\'updateVersionFile/xdescribe\(\'updateVersionFile/ test/test.js
   - sed -i s/describe\(\'run/xdescribe\(\'run/ test/test.js
-  - sed -i s/describe(\'releaseNewTag/describe(\'xreleaseNewTag/ test/test.js
+  - sed -i s/describe\(\'releaseNewTag/describe\(\'xreleaseNewTag/ test/test.js
 
