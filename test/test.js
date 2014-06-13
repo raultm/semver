@@ -14,6 +14,20 @@ describe('AutoSemver', function(){
         semver = extend({}, semverBase);
     })
 
+    describe('Constants', function(){
+        it('should have Major(M)', function(){
+           assert.equal('M', semver.MAJOR);
+        })
+
+        it('should have Minor(M)', function(){
+            assert.equal('m', semver.MINOR);
+        })
+
+        it('should have Patch(p)', function(){
+            assert.equal('p', semver.PATCH);
+        })
+    });
+
     describe('run', function(){
         var getLastTagStub;
         var calculateNextVersionSpy;

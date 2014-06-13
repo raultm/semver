@@ -5,6 +5,7 @@ var extend = require('util')._extend;
 
 autosemver = {
 
+    PATCH: 'p',
     MINOR: 'm',
     MAJOR: 'M',
     // http://regex101.com/r/fT7bX6
