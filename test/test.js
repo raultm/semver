@@ -1,6 +1,5 @@
 var assert = require("assert");
 var semverBase = require("../index.js");
-var exec = require('sync-exec');
 var sinon = require('sinon')
 var extend = require('util')._extend;
 var semver;
@@ -14,6 +13,50 @@ describe('AutoSemver', function(){
     beforeEach(function(){
         semver = extend({}, semverBase);
     })
+
+    describe('run', function(){
+        var getLastTagStub;
+        var calculateNextVersionSpy;
+        var applyNewTagStub;
+        beforeEach(function(){
+            getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
+            calculateNextVersionSpy = sinon.spy(semver, "calculateNextVersion");
+            applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
+            releaseNewTagStub = sinon.spy(semver, "releaseNewTag", function(){ return true; });
+        })
+
+        it('should return false if no cwd', function(){
+            assert.equal(false, semver.run());
+        });
+
+        it('should call getLastTag with cwd', function(){
+            semver.run(projectPath);
+            assert.equal(true       , getLastTagStub.calledOnce);
+            assert.equal(projectPath, getLastTagStub.lastCall.args[0]);
+        });
+
+        it('should call calculateNextVersion with tagObject', function(){
+            semver.run(projectPath);
+            assert.equal(true, calculateNextVersionSpy.calledOnce);
+            assert.equal(semver.getEmptyTagObject().tag, calculateNextVersionSpy.lastCall.args[0].tag);
+        });
+
+        it('should call applyNewTag with cwd and tagObject', function(){
+            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
+            semver.run(projectPath);
+            assert.equal(true, applyNewTagStub.calledOnce);
+            assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
+            assert.equal(newTagObject.tag, applyNewTagStub.lastCall.args[1].tag);
+        });
+
+        it('should call releaseNewTag with cwd and tagObject', function(){
+            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
+            semver.run(projectPath);
+            assert.equal(true, releaseNewTagStub.calledOnce);
+            assert.equal(projectPath, releaseNewTagStub.lastCall.args[0]);
+            assert.equal(newTagObject.tag, releaseNewTagStub.lastCall.args[1].tag);
+        });
+    });
 
     describe('getEmptyTagObject', function(){
         it('should return first version [0.1.0] propose by http://semver.org/ in the first question of the FAQ', function(){
@@ -117,14 +160,13 @@ describe('AutoSemver', function(){
 
     describe('getLastTag', function(){
         beforeEach(function(){
-            exec('rm -rf ' + dummyName  , {cwd: tmpPath});
-            exec('mkdir ' + dummyName   , {cwd: tmpPath});
-            exec('git init'             , {cwd: projectPath});
-            exec('git status'           , {cwd: projectPath});
-            exec('echo text > test.txt' , {cwd: projectPath});
-            exec('git add .'            , {cwd: projectPath});
-            exec('git commit -m "First"', {cwd: projectPath});
-            //exec('git tag v0.1.0 -m "First Beta release"'     , {cwd: '/tmp/dummyproject'});
+            semver.exec('rm -rf ' + dummyName  , tmpPath);
+            semver.exec('mkdir ' + dummyName   , tmpPath);
+            semver.exec('git init'             , projectPath);
+            semver.exec('git status'           , projectPath);
+            semver.exec('echo text > test.txt' , projectPath);
+            semver.exec('git add .'            , projectPath);
+            semver.exec('git commit -m "First"', projectPath);
         })
 
         it('should return false if no tag is founded', function(){
@@ -132,17 +174,17 @@ describe('AutoSemver', function(){
         });
 
         it('should return tag if exists at least one', function(){
-            exec('git tag v0.1.0 -m "First Beta"' , {cwd: projectPath});
+            semver.exec('git tag v0.1.0 -m "First Beta"' , projectPath);
             var tagObject = semver.getLastTag(projectPath);
             assert.equal('v0.1.0', tagObject.tag);
         });
 
         it('should return last tag if exists at least two', function(){
-            exec('git tag v0.1.0 -m "1st"' , {cwd: projectPath});
-            exec('echo text > test2.txt'   , {cwd: projectPath});
-            exec('git add .'               , {cwd: projectPath});
-            exec('git commit -m "Second"'  , {cwd: projectPath});
-            exec('git tag v0.1.1 -m "2nd"' , {cwd: projectPath});
+            semver.exec('git tag v0.1.0 -m "1st"' , projectPath);
+            semver.exec('echo text > test2.txt'   , projectPath);
+            semver.exec('git add .'               , projectPath);
+            semver.exec('git commit -m "Second"'  , projectPath);
+            semver.exec('git tag v0.1.1 -m "2nd"' , projectPath);
             var tagObject = semver.getLastTag(projectPath);
             assert.equal('v0.1.1', tagObject.tag);
         });
@@ -150,8 +192,8 @@ describe('AutoSemver', function(){
 
     describe('updateVersionFile', function(){
         beforeEach(function(){
-            exec('rm -rf ' + dummyName  , {cwd: tmpPath});
-            exec('mkdir ' + dummyName   , {cwd: tmpPath});
+            semver.exec('rm -rf ' + dummyName, tmpPath);
+            semver.exec('mkdir ' + dummyName , tmpPath);
         })
 
         it('should return false if no cwd', function(){
@@ -166,7 +208,7 @@ describe('AutoSemver', function(){
             tag = 'v3.4.5betaa'
             tagObject = { tag: tag};
             semver.updateVersionFile(projectPath, tagObject);
-            cat = exec("cat " + projectPath + "/VERSION");
+            cat = semver.exec("cat " + projectPath + "/VERSION");
             assert.equal(tag, cat.stdout);
         });
 
@@ -202,15 +244,15 @@ describe('AutoSemver', function(){
     describe('releaseNewTag', function() {
         var execSpy;
         beforeEach(function(){
-            exec('rm -rf ' + dummyName  , {cwd: tmpPath});
-            exec('mkdir ' + dummyName   , {cwd: tmpPath});
-            exec('git init'             , {cwd: projectPath});
-            exec('git status'           , {cwd: projectPath});
-            exec('echo text > test.txt' , {cwd: projectPath});
-            exec('git add .'            , {cwd: projectPath});
-            exec('git commit -m "First"', {cwd: projectPath});
-            exec('git tag 0.1.0 -m "First Beta release"', {cwd: projectPath});
-            exec('echo v0.1.1 > VERSION' , {cwd: projectPath});
+            semver.exec('rm -rf ' + dummyName  , tmpPath);
+            semver.exec('mkdir ' + dummyName   , tmpPath);
+            semver.exec('git init'             , projectPath);
+            semver.exec('git status'           , projectPath);
+            semver.exec('echo text > test.txt' , projectPath);
+            semver.exec('git add .'            , projectPath);
+            semver.exec('git commit -m "First"', projectPath);
+            semver.exec('git tag 0.1.0 -m "First Beta release"', projectPath);
+            semver.exec('echo v0.1.1 > VERSION' , projectPath);
             execSpy = sinon.spy(semver, "exec");
         });
 
@@ -231,49 +273,4 @@ describe('AutoSemver', function(){
             assert.equal(0, execSpy.args[2][0].indexOf("git tag " + newTagObject.tag));
         });
     });
-
-    describe('run', function(){
-        var getLastTagStub;
-        var calculateNextVersionSpy;
-        var applyNewTagStub;
-        beforeEach(function(){
-            getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
-            calculateNextVersionSpy = sinon.spy(semver, "calculateNextVersion");
-            applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
-            releaseNewTagStub = sinon.spy(semver, "releaseNewTag", function(){ return true; });
-        })
-
-        it('should return false if no cwd', function(){
-            assert.equal(false, semver.run());
-        });
-        it('should call getLastTag with cwd', function(){
-            semver.run(projectPath);
-            assert.equal(true       , getLastTagStub.calledOnce);
-            assert.equal(projectPath, getLastTagStub.lastCall.args[0]);
-        });
-
-        it('should call calculateNextVersion with tagObject', function(){
-            semver.run(projectPath);
-            assert.equal(true, calculateNextVersionSpy.calledOnce);
-            assert.equal(semver.getEmptyTagObject().tag, calculateNextVersionSpy.lastCall.args[0].tag);
-        });
-
-        it('should call applyNewTag with cwd and tagObject', function(){
-            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
-            semver.run(projectPath);
-            assert.equal(true, applyNewTagStub.calledOnce);
-            assert.equal(projectPath, applyNewTagStub.lastCall.args[0]);
-            assert.equal(newTagObject.tag, applyNewTagStub.lastCall.args[1].tag);
-        });
-
-        it('should call releaseNewTag with cwd and tagObject', function(){
-            var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
-            semver.run(projectPath);
-            assert.equal(true, releaseNewTagStub.calledOnce);
-            assert.equal(projectPath, releaseNewTagStub.lastCall.args[0]);
-            assert.equal(newTagObject.tag, releaseNewTagStub.lastCall.args[1].tag);
-        });
-    });
-
-
 })
