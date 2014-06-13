@@ -1,6 +1,7 @@
 var exec = require('sync-exec');
 var fs = require('fs');
 var extend = require('util')._extend;
+var extend = require('util')._extend;
 
 autosemver = {
 
@@ -57,7 +58,7 @@ autosemver = {
     },
     getLastTag: function(cwd){
         // Set --long . Problems if sometimes long and sometimes short
-        var execReturn = exec('git describe --long', {cwd: cwd});
+        var execReturn = this.exec('git describe --long', cwd);
         if(execReturn.status == 128){ return false;}
         return this.matchVersionTagFromGitDescribe(execReturn.stdout.replace("\n", ""));
     },
