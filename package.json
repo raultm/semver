@@ -10,8 +10,8 @@
   "scripts": {
     "test": "mocha -R spec"
   },
-  "name": "semver",
-  "description": "SEMI AUTO SEMVER ---------------- [![Build Status](https://travis-ci.org/raultm/semver.svg?branch=master)](https://travis-ci.org/raultm/semver)",
+  "name": "gitsm",
+  "description": "Tool to handle semver upgrades using git tags.",
   "version": "0.1.0",
   "main": "index.js",
   "directories": {
