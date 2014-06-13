@@ -38,5 +38,8 @@
   "bugs": {
     "url": "https://github.com/raultm/semver/issues"
   },
-  "homepage": "https://github.com/raultm/semver"
+  "homepage": "https://github.com/raultm/semver",
+  "bin": {
+    "gitsm": "./bin/semver.js"
+  }
 }
