@@ -321,8 +321,12 @@ describe('AutoSemver', function(){
            assert.equal(false, semver.parseArgvParams());
         })
 
+        it('should return false if no current CWD', function(){
+            assert.equal(false, semver.parseArgvParams([]));
+        })
+
         it('should return semverDefaulCLIValues if empty argv', function(){
-            assert.equal(semver.defaultCLIValues, semver.parseArgvParams([]));
+            assert.equal(semver.defaultCLIValues, semver.parseArgvParams([], './'));
         })
 
     });

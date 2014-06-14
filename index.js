@@ -25,8 +25,8 @@ autosemver = {
         this.parseArgvParams();
         this.run();
     },
-    parseArgvParams: function(options){
-        if(!options){ return false; }
+    parseArgvParams: function(options, cwd){
+        if(!options || !cwd){ return false; }
         return this.defaultCLIValues;
     },
     getEmptyTagObject: function(){
