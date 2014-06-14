@@ -317,8 +317,13 @@ describe('AutoSemver', function(){
     });
 
     describe('parseArgvParams', function(){
-       it('should return false if no param', function(){
+        it('should return false if no param', function(){
            assert.equal(false, semver.parseArgvParams());
-       })
+        })
+
+        it('should return semverDefaulCLIValues if empty argv', function(){
+            assert.equal(semver.defaultCLIValues, semver.parseArgvParams([]));
+        })
+
     });
 })
