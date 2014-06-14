@@ -1,8 +1,13 @@
 var assert = require("assert");
 var semverBase = require("../index.js");
-var sinon = require('sinon')
+var sinon = require('sinon');
 var extend = require('util')._extend;
 var semver;
+
+var fs = require('fs');
+
+var packageFileContent = fs.readFileSync('./package.json');
+//var packageJson = JSON.parse(packageFile);
 
 var tmpPath = '/tmp';
 var dummyName = 'dummyproject';
@@ -32,6 +37,14 @@ describe('AutoSemver', function(){
             assert.equal('./', semver.defaultCLIValues.cwd);
         })
     });
+
+    describe('clirun', function(){
+        it('should call parseArgvParams', function(){
+            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(argvParams){ return true; });
+            semver.clirun();
+            assert.equal(true       , parseArgvParamsStub.calledOnce);
+        })
+    })
 
     describe('run', function(){
         var getLastTagStub;

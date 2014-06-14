@@ -21,6 +21,12 @@ autosemver = {
         this.applyNewTag(cwd, newTagObject);
         this.releaseNewTag(cwd, newTagObject);
     },
+    clirun: function(){
+        this.parseArgvParams(process.argv);
+    },
+    parseArgvParams: function(options){
+
+    },
     getEmptyTagObject: function(){
         return {
             tag    : '0.1.0',
