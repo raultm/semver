@@ -315,4 +315,10 @@ describe('AutoSemver', function(){
             assert.equal(0, execSpy.args[2][0].indexOf("git tag " + newTagObject.tag));
         });
     });
+
+    describe('parseArgvParams', function(){
+       it('should return false if no param', function(){
+           assert.equal(false, semver.parseArgvParams());
+       })
+    });
 })

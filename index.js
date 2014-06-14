@@ -26,7 +26,7 @@ autosemver = {
         this.run();
     },
     parseArgvParams: function(options){
-
+        return false;
     },
     getEmptyTagObject: function(){
         return {
