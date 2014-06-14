@@ -10,6 +10,10 @@ autosemver = {
     MAJOR: 'M',
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
+    defaultCLIValues: {
+        cwd: './',
+        typeOfNewVersion: 'p',
+    },
     run: function(cwd){
         if(!cwd){ return false; }
         var tagObject = this.getLastTag(cwd);

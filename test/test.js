@@ -19,12 +19,17 @@ describe('AutoSemver', function(){
            assert.equal('M', semver.MAJOR);
         })
 
-        it('should have Minor(M)', function(){
+        it('should have Minor(m)', function(){
             assert.equal('m', semver.MINOR);
         })
 
         it('should have Patch(p)', function(){
             assert.equal('p', semver.PATCH);
+        })
+
+        it('should have defaultValues', function(){
+            assert.equal(semver.PATCH, semver.defaultCLIValues.typeOfNewVersion);
+            assert.equal('./', semver.defaultCLIValues.cwd);
         })
     });
 
