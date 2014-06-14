@@ -23,6 +23,7 @@ autosemver = {
     },
     clirun: function(){
         this.parseArgvParams();
+        this.run();
     },
     parseArgvParams: function(options){
 
