@@ -22,7 +22,7 @@ autosemver = {
         this.releaseNewTag(cwd, newTagObject);
     },
     clirun: function(){
-        this.parseArgvParams(process.argv);
+        this.parseArgvParams();
     },
     parseArgvParams: function(options){
 

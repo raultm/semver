@@ -40,7 +40,7 @@ describe('AutoSemver', function(){
 
     describe('clirun', function(){
         it('should call parseArgvParams', function(){
-            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(argvParams){ return true; });
+            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(){ return true; });
             semver.clirun();
             assert.equal(true       , parseArgvParamsStub.calledOnce);
         })
