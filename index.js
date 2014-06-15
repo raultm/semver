@@ -1,7 +1,6 @@
 var exec = require('sync-exec');
 var fs = require('fs');
 var extend = require('util')._extend;
-var extend = require('util')._extend;
 
 autosemver = {
 
@@ -28,7 +27,9 @@ autosemver = {
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }
         if(options[1].indexOf("gitsm") == -1){ return false; }
-        return this.defaultCLIValues;
+        var customValues = {};
+        if(options.indexOf("-" + this.MINOR)){ customValues.typeOfNewVersion = this.MINOR; }
+        return extend(this.defaultCLIValues, customValues);
     },
     getEmptyTagObject: function(){
         return {

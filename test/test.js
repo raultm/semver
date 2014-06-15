@@ -333,5 +333,9 @@ describe('AutoSemver', function(){
             assert.equal(semver.defaultCLIValues, semver.parseArgvParams(['node', '/path/to/gitsm'], './'));
         })
 
+        it('should return "m" minor if "-m" in argv array', function(){
+            assert.equal(semver.MINOR, semver.parseArgvParams(['node', '/path/to/gitsm', '-m'], './').typeOfNewVersion);
+        })
+
     });
 })
