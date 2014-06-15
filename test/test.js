@@ -325,8 +325,12 @@ describe('AutoSemver', function(){
             assert.equal(false, semver.parseArgvParams([]));
         })
 
+        it('should return false if the second param of argv doesnt have "gitsm" string which is the command', function(){
+            assert.equal(false, semver.parseArgvParams([], './'));
+        })
+
         it('should return semverDefaulCLIValues if empty argv', function(){
-            assert.equal(semver.defaultCLIValues, semver.parseArgvParams([], './'));
+            assert.equal(semver.defaultCLIValues, semver.parseArgvParams(['node', '/path/to/gitsm'], './'));
         })
 
     });

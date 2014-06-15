@@ -26,7 +26,8 @@ autosemver = {
         this.run();
     },
     parseArgvParams: function(options, cwd){
-        if(!options || !cwd){ return false; }
+        if(!options || !cwd || options.length < 2){ return false; }
+        if(options[1].indexOf("gitsm") == -1){ return false; }
         return this.defaultCLIValues;
     },
     getEmptyTagObject: function(){
