@@ -31,7 +31,9 @@ autosemver = {
         if(options.indexOf("-" + this.MAJOR) != -1){ customValues.typeOfNewVersion = this.MAJOR; }
         if(options.indexOf("-" + this.MINOR) != -1){ customValues.typeOfNewVersion = this.MINOR; }
         if(options.indexOf("-" + this.PATCH) != -1){ customValues.typeOfNewVersion = this.PATCH; }
-        return extend(this.defaultCLIValues, customValues);
+        customValues.cwd = this.exec('git rev-parse --show-toplevel');
+        var cliValues = extend(this.defaultCLIValues, customValues);
+        return cliValues;
     },
     getEmptyTagObject: function(){
         return {

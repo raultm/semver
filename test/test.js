@@ -317,6 +317,12 @@ describe('AutoSemver', function(){
     });
 
     describe('parseArgvParams', function(){
+        var execStub;
+        var gitroot = "/path/to/git/root/";
+        beforeEach(function(){
+            execStub = sinon.stub(semver, "exec", function(cwd){ return gitroot; });
+        })
+
         it('should return false if no param', function(){
            assert.equal(false, semver.parseArgvParams());
         })
@@ -343,6 +349,13 @@ describe('AutoSemver', function(){
 
         it('should return "p" (Patch version) if "-p" in argv array. Should choose least version type', function(){
             assert.equal(semver.PATCH, semver.parseArgvParams(['node', '/path/to/gitsm', '-M', '-p'], './').typeOfNewVersion);
+        })
+
+        it('should search for git root directory even if we are in subfolder', function(){
+            var params = semver.parseArgvParams(['node', '/path/to/gitsm', '-M', '-p'], './');
+            assert.equal(1, execStub.callCount);
+            assert.equal('git rev-parse --show-toplevel', execStub.args[0]);
+            assert.equal(gitroot, params.cwd);
         })
 
     });
