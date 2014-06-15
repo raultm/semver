@@ -28,7 +28,9 @@ autosemver = {
         if(!options || !cwd || options.length < 2){ return false; }
         if(options[1].indexOf("gitsm") == -1){ return false; }
         var customValues = {};
-        if(options.indexOf("-" + this.MINOR)){ customValues.typeOfNewVersion = this.MINOR; }
+        if(options.indexOf("-" + this.MAJOR) != -1){ customValues.typeOfNewVersion = this.MAJOR; }
+        if(options.indexOf("-" + this.MINOR) != -1){ customValues.typeOfNewVersion = this.MINOR; }
+        if(options.indexOf("-" + this.PATCH) != -1){ customValues.typeOfNewVersion = this.PATCH; }
         return extend(this.defaultCLIValues, customValues);
     },
     getEmptyTagObject: function(){

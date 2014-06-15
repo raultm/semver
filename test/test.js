@@ -333,8 +333,16 @@ describe('AutoSemver', function(){
             assert.equal(semver.defaultCLIValues, semver.parseArgvParams(['node', '/path/to/gitsm'], './'));
         })
 
-        it('should return "m" minor if "-m" in argv array', function(){
+        it('should return "m" (Minor version) if "-m" in argv array', function(){
             assert.equal(semver.MINOR, semver.parseArgvParams(['node', '/path/to/gitsm', '-m'], './').typeOfNewVersion);
+        })
+
+        it('should return "M" (Major version) if "-M" in argv array', function(){
+            assert.equal(semver.MAJOR, semver.parseArgvParams(['node', '/path/to/gitsm', '-M'], './').typeOfNewVersion);
+        })
+
+        it('should return "p" (Patch version) if "-p" in argv array. Should choose least version type', function(){
+            assert.equal(semver.PATCH, semver.parseArgvParams(['node', '/path/to/gitsm', '-M', '-p'], './').typeOfNewVersion);
         })
 
     });
