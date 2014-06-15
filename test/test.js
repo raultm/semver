@@ -41,13 +41,18 @@ describe('AutoSemver', function(){
     describe('clirun', function(){
         var parseArgvParamsStub;
         var runStub;
+        var argvParamsReturn;
         beforeEach(function(){
-            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(){ return true; });
+            argvParamsReturn = {cwd: '/origin/path', typeOfNewVersion: semver.MAJOR};
+            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(){ return argvParamsReturn; });
             runStub = sinon.stub(semver, "run", function(){ return true; });
         })
         it('should call parseArgvParams', function(){
             semver.clirun();
-            assert.equal(true       , parseArgvParamsStub.calledOnce);
+            assert.equal(true, parseArgvParamsStub.calledOnce);
+            assert.equal(2   , parseArgvParamsStub.args[0].length);
+            assert.equal(true, runStub.calledOnce);
+            assert.equal(argvParamsReturn, runStub.args[0][0]);
         })
 
         it('should call run', function(){

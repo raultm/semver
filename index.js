@@ -21,8 +21,8 @@ autosemver = {
         this.releaseNewTag(cwd, newTagObject);
     },
     clirun: function(){
-        this.parseArgvParams();
-        this.run();
+        var params = this.parseArgvParams(process.argv, process.cwd());
+        this.run(params);
     },
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }
