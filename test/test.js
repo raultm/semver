@@ -19,8 +19,8 @@ describe('AutoSemver', function(){
         semver = extend({}, semverBase);
     })
 
-    it('should have verbose attribute "true" by default', function(){
-        assert.equal(true, semver.verbose);
+    it('should have verbose attribute "2" by default', function(){
+        assert.equal(2, semver.verbose);
     })
 
     describe('Constants', function(){

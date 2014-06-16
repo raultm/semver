@@ -13,7 +13,7 @@ autosemver = {
         cwd: './',
         typeOfNewVersion: 'p',
     },
-    verbose: true,
+    verbose: 2,
     run: function(cwd){
         if(!cwd){ return false; }
         cwd = cwd.replace("\n", "");
