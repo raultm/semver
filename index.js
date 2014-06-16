@@ -14,6 +14,10 @@ autosemver = {
         typeOfNewVersion: 'p',
     },
     verbose: 2,
+    VERBOSE: 3,
+    log: function(){
+      return false;
+    },
     run: function(cwd){
         if(!cwd){ return false; }
         cwd = cwd.replace("\n", "");

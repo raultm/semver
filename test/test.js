@@ -19,9 +19,24 @@ describe('AutoSemver', function(){
         semver = extend({}, semverBase);
     })
 
-    it('should have verbose attribute "2" by default', function(){
+    it('should have debug attribute "2" by default', function(){
         assert.equal(2, semver.verbose);
     })
+
+    it('should have attribute for VERBOSE equal to 0', function(){
+        assert.equal(3, semver.VERBOSE);
+    })
+
+    describe('log', function(){
+        it('should return false if no message', function(){
+            assert.equal(false, semver.log());
+        })
+//        it('should return objet with message and level', function(){
+//            var objectToCheck = {message: "msg", level:2}
+//            assert.equal(false, semver.log());
+//        })
+
+    });
 
     describe('Constants', function(){
         it('should have Major(M)', function(){
