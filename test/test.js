@@ -81,8 +81,8 @@ describe('AutoSemver', function(){
         })
 
         it('should allow select level param', function(){
-            var logReturn = semver.log("msg", semver.WARNING);
-            assert.equal(semver.VERBOSE, logReturn.level);
+            var logReturn = semver.log("msg", semver.INFO);
+            assert.equal(semver.INFO, logReturn.level);
         })
 
         it('should call logFunction', function(){
