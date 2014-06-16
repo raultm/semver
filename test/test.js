@@ -38,7 +38,7 @@ describe('AutoSemver', function(){
         })
 
         it('should have logfunction attribute console.log by default', function(){
-            assert.equal('console.log', semver.logFunction);
+            assert.equal(console.log, semver.logFunction);
         })
 
         it('should have debug attribute "2" by default', function(){
@@ -59,9 +59,11 @@ describe('AutoSemver', function(){
     });
 
     describe('log', function(){
+        var logFunctionStub;
         var objectToCheck;
         beforeEach(function(){
             objectToCheck = {message: "msg", level:2};
+            logFunctionStub = sinon.stub(semver, "logFunction", function(msg, level){ return true; });
         })
 
         it('should return false if no message', function(){
@@ -81,6 +83,11 @@ describe('AutoSemver', function(){
         it('should allow select level param', function(){
             var logReturn = semver.log("msg", semver.VERBOSE);
             assert.equal(semver.VERBOSE, logReturn.level);
+        })
+
+        it('should call logFunction', function(){
+            var logReturn = semver.log("msg", semver.VERBOSE);
+            assert.equal(true, logFunctionStub.calledOnce);
         })
 
     });

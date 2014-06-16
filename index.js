@@ -16,11 +16,12 @@ autosemver = {
         cwd: './',
         typeOfNewVersion: 'p',
     },
-    logFunction: 'console.log',
+    logFunction: console.log,
     verbose: 2,
     log: function(message, level){
         if(!message){ return false; }
         if(!level){ level = this.WARNING; }
+        this.logFunction(message);
         return {message: message, level: level};
     },
     run: function(cwd, typeOfNewVersion){
