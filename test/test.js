@@ -52,6 +52,10 @@ describe('AutoSemver', function(){
         it('should have attribute for WARNING equal to 3', function(){
             assert.equal(2, semver.WARNING);
         })
+
+        it('should have attribute for INFO equal to 1', function(){
+            assert.equal(1, semver.INFO);
+        })
     });
 
     describe('log', function(){

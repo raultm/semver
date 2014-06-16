@@ -9,6 +9,7 @@ autosemver = {
     MAJOR: 'M',
     VERBOSE: 3,
     WARNING: 2,
+    INFO: 1,
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
     defaultCLIValues: {
