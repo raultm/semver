@@ -141,6 +141,18 @@ describe('AutoSemver', function(){
             assert.equal(semver.PATCH, calculateNextVersionSpy.lastCall.args[1]);
         });
 
+        it('should allow calculateNextVersion with MINOR', function(){
+            semver.run(projectPath, semver.MINOR);
+            assert.equal(true, calculateNextVersionSpy.calledOnce);
+            assert.equal(semver.MINOR, calculateNextVersionSpy.lastCall.args[1]);
+        });
+
+        it('should allow calculateNextVersion with MAJOR', function(){
+            semver.run(projectPath, semver.MAJOR);
+            assert.equal(true, calculateNextVersionSpy.calledOnce);
+            assert.equal(semver.MAJOR, calculateNextVersionSpy.lastCall.args[1]);
+        });
+
         it('should call applyNewTag with cwd and tagObject', function(){
             var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
             semver.run(projectPath);

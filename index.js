@@ -23,11 +23,12 @@ autosemver = {
         if(!level){ level = this.WARNING; }
         return {message: message, level: level};
     },
-    run: function(cwd){
+    run: function(cwd, typeOfNewVersion){
         if(!cwd){ return false; }
         cwd = cwd.replace("\n", "");
+        if(!typeOfNewVersion) { typeOfNewVersion = this.PATCH; }
         var tagObject = this.getLastTag(cwd);
-        var newTagObject = this.calculateNextVersion(tagObject, this.PATCH);
+        var newTagObject = this.calculateNextVersion(tagObject, typeOfNewVersion);
         this.applyNewTag(cwd, newTagObject);
         this.releaseNewTag(cwd, newTagObject);
     },
