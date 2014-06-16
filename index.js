@@ -27,7 +27,7 @@ autosemver = {
         if(!cwd){ return false; }
         cwd = cwd.replace("\n", "");
         var tagObject = this.getLastTag(cwd);
-        var newTagObject = this.calculateNextVersion(tagObject);
+        var newTagObject = this.calculateNextVersion(tagObject, this.PATCH);
         this.applyNewTag(cwd, newTagObject);
         this.releaseNewTag(cwd, newTagObject);
     },
@@ -58,7 +58,8 @@ autosemver = {
     calculateNextVersion: function(tagObject, typeOfNewVersion){
         if(tagObject == false){ tagObject = this.getEmptyTagObject(); }
         var newTagObject = extend({}, tagObject);
-        if(!typeOfNewVersion){
+        if(!typeOfNewVersion){ typeOfNewVersion = this.PATCH; }
+        if(typeOfNewVersion == this.PATCH){
             newTagObject.patch = parseInt(newTagObject.patch) + 1;
         }
         if(typeOfNewVersion == this.MINOR){

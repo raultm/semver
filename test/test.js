@@ -114,8 +114,8 @@ describe('AutoSemver', function(){
         var applyNewTagStub;
         beforeEach(function(){
             getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
-            calculateNextVersionSpy = sinon.spy(semver, "calculateNextVersion");
             applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
+            calculateNextVersionSpy = sinon.spy(semver, "calculateNextVersion");
             releaseNewTagStub = sinon.spy(semver, "releaseNewTag", function(){ return true; });
         })
 
@@ -135,6 +135,12 @@ describe('AutoSemver', function(){
             assert.equal(semver.getEmptyTagObject().tag, calculateNextVersionSpy.lastCall.args[0].tag);
         });
 
+        it('should call calculateNextVersion with PATCH like newTypeOfVersion if no second param', function(){
+            semver.run(projectPath);
+            assert.equal(true, calculateNextVersionSpy.calledOnce);
+            assert.equal(semver.PATCH, calculateNextVersionSpy.lastCall.args[1]);
+        });
+
         it('should call applyNewTag with cwd and tagObject', function(){
             var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
             semver.run(projectPath);
@@ -150,6 +156,8 @@ describe('AutoSemver', function(){
             assert.equal(projectPath, releaseNewTagStub.lastCall.args[0]);
             assert.equal(newTagObject.tag, releaseNewTagStub.lastCall.args[1].tag);
         });
+
+
     });
 
     describe('getEmptyTagObject', function(){
