@@ -19,6 +19,10 @@ describe('AutoSemver', function(){
         semver = extend({}, semverBase);
     })
 
+    it('should have verbose attribute "true" by default', function(){
+        assert.equal(true, semver.verbose);
+    })
+
     describe('Constants', function(){
         it('should have Major(M)', function(){
            assert.equal('M', semver.MAJOR);
