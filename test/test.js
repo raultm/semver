@@ -37,6 +37,10 @@ describe('AutoSemver', function(){
             assert.equal('./', semver.defaultCLIValues.cwd);
         })
 
+        it('should have logfunction attribute console.log by default', function(){
+            assert.equal('console.log', semver.logFunction);
+        })
+
         it('should have debug attribute "2" by default', function(){
             assert.equal(2, semver.verbose);
         })
@@ -68,6 +72,11 @@ describe('AutoSemver', function(){
         it('should allow log message with no level param, set to WARNING in this case', function(){
             var logReturn = semver.log("msg");
             assert.equal(semver.WARNING, logReturn.level);
+        })
+
+        it('should allow select level param', function(){
+            var logReturn = semver.log("msg", semver.VERBOSE);
+            assert.equal(semver.VERBOSE, logReturn.level);
         })
 
     });

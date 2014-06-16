@@ -15,11 +15,12 @@ autosemver = {
         cwd: './',
         typeOfNewVersion: 'p',
     },
+    logFunction: 'console.log',
     verbose: 2,
-    log: function(message){
+    log: function(message, level){
         if(!message){ return false; }
-
-        return {message: message, level: this.WARNING};
+        if(!level){ level = this.WARNING; }
+        return {message: message, level: level};
     },
     run: function(cwd){
         if(!cwd){ return false; }
