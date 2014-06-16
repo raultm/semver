@@ -19,26 +19,7 @@ describe('AutoSemver', function(){
         semver = extend({}, semverBase);
     })
 
-    it('should have debug attribute "2" by default', function(){
-        assert.equal(2, semver.verbose);
-    })
-
-    it('should have attribute for VERBOSE equal to 0', function(){
-        assert.equal(3, semver.VERBOSE);
-    })
-
-    describe('log', function(){
-        it('should return false if no message', function(){
-            assert.equal(false, semver.log());
-        })
-//        it('should return objet with message and level', function(){
-//            var objectToCheck = {message: "msg", level:2}
-//            assert.equal(false, semver.log());
-//        })
-
-    });
-
-    describe('Constants', function(){
+    describe('Attributes', function(){
         it('should have Major(M)', function(){
            assert.equal('M', semver.MAJOR);
         })
@@ -55,6 +36,40 @@ describe('AutoSemver', function(){
             assert.equal(semver.PATCH, semver.defaultCLIValues.typeOfNewVersion);
             assert.equal('./', semver.defaultCLIValues.cwd);
         })
+
+        it('should have debug attribute "2" by default', function(){
+            assert.equal(2, semver.verbose);
+        })
+
+        it('should have attribute for VERBOSE equal to 3', function(){
+            assert.equal(3, semver.VERBOSE);
+        })
+
+        it('should have attribute for WARNING equal to 3', function(){
+            assert.equal(2, semver.WARNING);
+        })
+    });
+
+    describe('log', function(){
+        var objectToCheck;
+        beforeEach(function(){
+            objectToCheck = {message: "msg", level:2};
+        })
+
+        it('should return false if no message', function(){
+            assert.equal(false, semver.log());
+        })
+
+        it('should return objet with message and level', function(){
+            var logReturn = semver.log("msg");
+            assert.equal("msg", logReturn.message);
+        })
+
+        it('should allow log message with no level param, set to WARNING in this case', function(){
+            var logReturn = semver.log("msg");
+            assert.equal("msg", logReturn.message);
+        })
+
     });
 
     describe('clirun', function(){

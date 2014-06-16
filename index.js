@@ -7,6 +7,8 @@ autosemver = {
     PATCH: 'p',
     MINOR: 'm',
     MAJOR: 'M',
+    VERBOSE: 3,
+    WARNING: 2,
     // http://regex101.com/r/fT7bX6
     versionRegexPattern: /^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/,
     defaultCLIValues: {
@@ -14,9 +16,10 @@ autosemver = {
         typeOfNewVersion: 'p',
     },
     verbose: 2,
-    VERBOSE: 3,
-    log: function(){
-      return false;
+    log: function(message){
+        if(!message){ return false; }
+
+        return {message: message, level: 2};
     },
     run: function(cwd){
         if(!cwd){ return false; }
