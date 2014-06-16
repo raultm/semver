@@ -15,6 +15,7 @@ autosemver = {
     },
     run: function(cwd){
         if(!cwd){ return false; }
+        cwd = cwd.replace("\n", "");
         var tagObject = this.getLastTag(cwd);
         var newTagObject = this.calculateNextVersion(tagObject);
         this.applyNewTag(cwd, newTagObject);
@@ -22,16 +23,16 @@ autosemver = {
     },
     clirun: function(){
         var params = this.parseArgvParams(process.argv, process.cwd());
-        this.run(params);
+        this.run(params.cwd);
     },
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }
-        if(options[1].indexOf("gitsm") == -1){ return false; }
         var customValues = {};
         if(options.indexOf("-" + this.MAJOR) != -1){ customValues.typeOfNewVersion = this.MAJOR; }
         if(options.indexOf("-" + this.MINOR) != -1){ customValues.typeOfNewVersion = this.MINOR; }
         if(options.indexOf("-" + this.PATCH) != -1){ customValues.typeOfNewVersion = this.PATCH; }
-        customValues.cwd = this.exec('git rev-parse --show-toplevel');
+        var getGitRoot = this.exec('git rev-parse --show-toplevel', cwd);
+        customValues.cwd = getGitRoot.stdout;
         var cliValues = extend(this.defaultCLIValues, customValues);
         return cliValues;
     },
@@ -45,6 +46,7 @@ autosemver = {
         }
     },
     calculateNextVersion: function(tagObject, typeOfNewVersion){
+        if(tagObject == false){ tagObject = this.getEmptyTagObject(); }
         var newTagObject = extend({}, tagObject);
         if(!typeOfNewVersion){
             newTagObject.patch = parseInt(newTagObject.patch) + 1;

@@ -52,7 +52,7 @@ describe('AutoSemver', function(){
             assert.equal(true, parseArgvParamsStub.calledOnce);
             assert.equal(2   , parseArgvParamsStub.args[0].length);
             assert.equal(true, runStub.calledOnce);
-            assert.equal(argvParamsReturn, runStub.args[0][0]);
+            assert.equal(argvParamsReturn.cwd, runStub.args[0][0]);
         })
 
         it('should call run', function(){
@@ -325,7 +325,7 @@ describe('AutoSemver', function(){
         var execStub;
         var gitroot = "/path/to/git/root/";
         beforeEach(function(){
-            execStub = sinon.stub(semver, "exec", function(cwd){ return gitroot; });
+            execStub = sinon.stub(semver, "exec", function(cwd){ return {stdout:gitroot}; });
         })
 
         it('should return false if no param', function(){
@@ -359,7 +359,7 @@ describe('AutoSemver', function(){
         it('should search for git root directory even if we are in subfolder', function(){
             var params = semver.parseArgvParams(['node', '/path/to/gitsm', '-M', '-p'], './');
             assert.equal(1, execStub.callCount);
-            assert.equal('git rev-parse --show-toplevel', execStub.args[0]);
+            assert.equal('git rev-parse --show-toplevel', execStub.args[0][0]);
             assert.equal(gitroot, params.cwd);
         })
 
