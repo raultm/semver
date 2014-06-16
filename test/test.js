@@ -49,7 +49,7 @@ describe('AutoSemver', function(){
             assert.equal(3, semver.VERBOSE);
         })
 
-        it('should have attribute for WARNING equal to 3', function(){
+        it('should have attribute for WARNING equal to 2', function(){
             assert.equal(2, semver.WARNING);
         })
 
