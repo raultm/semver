@@ -42,7 +42,7 @@ describe('AutoSemver', function(){
         })
 
         it('should have debug attribute "2" by default', function(){
-            assert.equal(2, semver.verbose);
+            assert.equal(2, semver.debug);
         })
 
         it('should have attribute for VERBOSE equal to 3', function(){
@@ -81,13 +81,19 @@ describe('AutoSemver', function(){
         })
 
         it('should allow select level param', function(){
-            var logReturn = semver.log("msg", semver.VERBOSE);
+            var logReturn = semver.log("msg", semver.WARNING);
             assert.equal(semver.VERBOSE, logReturn.level);
         })
 
         it('should call logFunction', function(){
-            var logReturn = semver.log("msg", semver.VERBOSE);
+            var logReturn = semver.log("msg", semver.WARNING);
             assert.equal(true, logFunctionStub.calledOnce);
+            assert.equal("msg", logFunctionStub.args[0][0]);
+        })
+
+        it('should not call logFunction if current debug level is WARNING and try to log VERBOSE', function(){
+            var logReturn = semver.log("msg", semver.VERBOSE);
+            assert.equal(false, logFunctionStub.calledOnce);
         })
 
     });

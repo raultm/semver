@@ -17,10 +17,11 @@ autosemver = {
         typeOfNewVersion: 'p',
     },
     logFunction: console.log,
-    verbose: 2,
+    debug: 2,
     log: function(message, level){
         if(!message){ return false; }
         if(!level){ level = this.WARNING; }
+        if(level > this.debug){ return false; }
         this.logFunction(message);
         return {message: message, level: level};
     },
