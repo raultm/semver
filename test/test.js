@@ -67,7 +67,7 @@ describe('AutoSemver', function(){
 
         it('should allow log message with no level param, set to WARNING in this case', function(){
             var logReturn = semver.log("msg");
-            assert.equal("msg", logReturn.message);
+            assert.equal(semver.WARNING, logReturn.level);
         })
 
     });

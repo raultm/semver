@@ -19,7 +19,7 @@ autosemver = {
     log: function(message){
         if(!message){ return false; }
 
-        return {message: message, level: 2};
+        return {message: message, level: this.WARNING};
     },
     run: function(cwd){
         if(!cwd){ return false; }
