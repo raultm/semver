@@ -58,69 +58,6 @@ describe('AutoSemver', function(){
         })
     });
 
-    describe('log', function(){
-        var logFunctionStub;
-        var objectToCheck;
-        beforeEach(function(){
-            objectToCheck = {message: "msg", level:2};
-            logFunctionStub = sinon.stub(semver, "logFunction", function(msg, level){ return true; });
-        })
-
-        it('should return false if no message', function(){
-            assert.equal(false, semver.log());
-        })
-
-        it('should return object with message and level', function(){
-            var logReturn = semver.log("msg");
-            assert.equal("msg", logReturn.message);
-        })
-
-        it('should allow log message with no level param, set to WARNING in this case', function(){
-            var logReturn = semver.log("msg");
-            assert.equal(semver.WARNING, logReturn.level);
-        })
-
-        it('should allow select level param', function(){
-            var logReturn = semver.log("msg", semver.INFO);
-            assert.equal(semver.INFO, logReturn.level);
-        })
-
-        it('should call logFunction', function(){
-            var logReturn = semver.log("msg", semver.WARNING);
-            assert.equal(true, logFunctionStub.calledOnce);
-            assert.equal("msg", logFunctionStub.args[0][0]);
-        })
-
-        it('should not call logFunction if current debug level is WARNING and try to log VERBOSE', function(){
-            var logReturn = semver.log("msg", semver.VERBOSE);
-            assert.equal(false, logFunctionStub.calledOnce);
-        })
-
-    });
-
-    describe('clirun', function(){
-        var parseArgvParamsStub;
-        var runStub;
-        var argvParamsReturn;
-        beforeEach(function(){
-            argvParamsReturn = {cwd: '/origin/path', typeOfNewVersion: semver.MAJOR};
-            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(){ return argvParamsReturn; });
-            runStub = sinon.stub(semver, "run", function(){ return true; });
-        })
-        it('should call parseArgvParams', function(){
-            semver.clirun();
-            assert.equal(true, parseArgvParamsStub.calledOnce);
-            assert.equal(2   , parseArgvParamsStub.args[0].length);
-            assert.equal(true, runStub.calledOnce);
-            assert.equal(argvParamsReturn.cwd, runStub.args[0][0]);
-        })
-
-        it('should call run', function(){
-            semver.clirun();
-            assert.equal(true       , runStub.calledOnce);
-        })
-    })
-
     describe('run', function(){
         var getLastTagStub;
         var calculateNextVersionSpy;
@@ -206,6 +143,69 @@ describe('AutoSemver', function(){
             assert.equal(semver.versionFileUpdated, logFunctionStub.args[2][0]);
             assert.equal(semver.INFO, logFunctionStub.args[2][1]);
         });
+    });
+
+    describe('clirun', function(){
+        var parseArgvParamsStub;
+        var runStub;
+        var argvParamsReturn;
+        beforeEach(function(){
+            argvParamsReturn = {cwd: '/origin/path', typeOfNewVersion: semver.MAJOR};
+            parseArgvParamsStub = sinon.stub(semver, "parseArgvParams", function(){ return argvParamsReturn; });
+            runStub = sinon.stub(semver, "run", function(){ return true; });
+        })
+        it('should call parseArgvParams', function(){
+            semver.clirun();
+            assert.equal(true, parseArgvParamsStub.calledOnce);
+            assert.equal(2   , parseArgvParamsStub.args[0].length);
+            assert.equal(true, runStub.calledOnce);
+            assert.equal(argvParamsReturn.cwd, runStub.args[0][0]);
+        })
+
+        it('should call run', function(){
+            semver.clirun();
+            assert.equal(true       , runStub.calledOnce);
+        })
+    })
+
+    describe('log', function(){
+        var logFunctionStub;
+        var objectToCheck;
+        beforeEach(function(){
+            objectToCheck = {message: "msg", level:2};
+            logFunctionStub = sinon.stub(semver, "logFunction", function(msg, level){ return true; });
+        })
+
+        it('should return false if no message', function(){
+            assert.equal(false, semver.log());
+        })
+
+        it('should return object with message and level', function(){
+            var logReturn = semver.log("msg");
+            assert.equal("msg", logReturn.message);
+        })
+
+        it('should allow log message with no level param, set to WARNING in this case', function(){
+            var logReturn = semver.log("msg");
+            assert.equal(semver.WARNING, logReturn.level);
+        })
+
+        it('should allow select level param', function(){
+            var logReturn = semver.log("msg", semver.INFO);
+            assert.equal(semver.INFO, logReturn.level);
+        })
+
+        it('should call logFunction', function(){
+            var logReturn = semver.log("msg", semver.WARNING);
+            assert.equal(true, logFunctionStub.calledOnce);
+            assert.equal("msg", logFunctionStub.args[0][0]);
+        })
+
+        it('should not call logFunction if current debug level is WARNING and try to log VERBOSE', function(){
+            var logReturn = semver.log("msg", semver.VERBOSE);
+            assert.equal(false, logFunctionStub.calledOnce);
+        })
+
     });
 
     describe('getEmptyTagObject', function(){
