@@ -70,7 +70,7 @@ describe('AutoSemver', function(){
             assert.equal(false, semver.log());
         })
 
-        it('should return objet with message and level', function(){
+        it('should return object with message and level', function(){
             var logReturn = semver.log("msg");
             assert.equal("msg", logReturn.message);
         })
