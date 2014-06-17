@@ -127,6 +127,7 @@ describe('AutoSemver', function(){
         var applyNewTagStub;
         var logFunctionStub;
         var releaseNewTagStub;
+        var logCallCountIfAllOk = 3;
         beforeEach(function(){
             getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
             applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
@@ -187,16 +188,23 @@ describe('AutoSemver', function(){
 
         it('should log the new last Tag found as INFO with custom message', function(){
             semver.run(projectPath, semver.MAJOR);
-            assert.equal(2, logFunctionStub.callCount);
+            assert.equal(logCallCountIfAllOk, logFunctionStub.callCount);
             assert.equal(semver.lastTagMessage + '0.1.0', logFunctionStub.args[0][0]);
             assert.equal(semver.INFO, logFunctionStub.args[0][1]);
         });
 
         it('should log the new TagObject as INFO with custom message', function(){
             semver.run(projectPath, semver.MAJOR);
-            assert.equal(2, logFunctionStub.callCount);
+            assert.equal(logCallCountIfAllOk, logFunctionStub.callCount);
             assert.equal(semver.nextTagMessage + '1.0.0', logFunctionStub.args[1][0]);
             assert.equal(semver.INFO, logFunctionStub.args[1][1]);
+        });
+
+        it('should log that VERSION file has been created/override with the new version', function(){
+            semver.run(projectPath, semver.MAJOR);
+            assert.equal(logCallCountIfAllOk, logFunctionStub.callCount);
+            assert.equal(semver.versionFileUpdated, logFunctionStub.args[2][0]);
+            assert.equal(semver.INFO, logFunctionStub.args[2][1]);
         });
     });
 

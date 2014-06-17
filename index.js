@@ -18,6 +18,7 @@ autosemver = {
     },
     lastTagMessage: 'The last tag used is ',
     nextTagMessage: 'The next tag to release is ',
+    versionFileUpdated: 'The VERSION file was updated with the new version',
     logFunction: console.log,
     debug: 2,
     log: function(message, level){
@@ -36,6 +37,7 @@ autosemver = {
         var newTagObject = this.calculateNextVersion(tagObject, typeOfNewVersion);
         this.log(this. nextTagMessage + newTagObject.tag, this.INFO);
         this.applyNewTag(cwd, newTagObject);
+        this.log(this.versionFileUpdated, this.INFO);
         this.releaseNewTag(cwd, newTagObject);
     },
     clirun: function(){
