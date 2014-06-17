@@ -16,6 +16,7 @@ autosemver = {
         cwd: './',
         typeOfNewVersion: 'p',
     },
+    lastTagMessage: 'The last tag used is ',
     nextTagMessage: 'The next tag to release is ',
     logFunction: console.log,
     debug: 2,
@@ -31,6 +32,7 @@ autosemver = {
         cwd = cwd.replace("\n", "");
         if(!typeOfNewVersion) { typeOfNewVersion = this.PATCH; }
         var tagObject = this.getLastTag(cwd);
+        this.log(this. lastTagMessage + tagObject.tag, this.INFO);
         var newTagObject = this.calculateNextVersion(tagObject, typeOfNewVersion);
         this.log(this. nextTagMessage + newTagObject.tag, this.INFO);
         this.applyNewTag(cwd, newTagObject);

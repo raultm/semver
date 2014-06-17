@@ -169,13 +169,6 @@ describe('AutoSemver', function(){
             assert.equal(semver.MAJOR, calculateNextVersionSpy.lastCall.args[1]);
         });
 
-        it('should log the new TagObject as INFO with custom message', function(){
-            semver.run(projectPath, semver.MAJOR);
-            assert.equal(true, logFunctionStub.calledOnce);
-            assert.equal(semver.nextTagMessage + '1.0.0', logFunctionStub.lastCall.args[0]);
-            assert.equal(semver.INFO, logFunctionStub.lastCall.args[1]);
-        });
-
         it('should call applyNewTag with cwd and tagObject', function(){
             var newTagObject = semver.calculateNextVersion(semver.getEmptyTagObject());
             semver.run(projectPath);
@@ -192,7 +185,19 @@ describe('AutoSemver', function(){
             assert.equal(newTagObject.tag, releaseNewTagStub.lastCall.args[1].tag);
         });
 
+        it('should log the new last Tag found as INFO with custom message', function(){
+            semver.run(projectPath, semver.MAJOR);
+            assert.equal(2, logFunctionStub.callCount);
+            assert.equal(semver.lastTagMessage + '0.1.0', logFunctionStub.args[0][0]);
+            assert.equal(semver.INFO, logFunctionStub.args[0][1]);
+        });
 
+        it('should log the new TagObject as INFO with custom message', function(){
+            semver.run(projectPath, semver.MAJOR);
+            assert.equal(2, logFunctionStub.callCount);
+            assert.equal(semver.nextTagMessage + '1.0.0', logFunctionStub.args[1][0]);
+            assert.equal(semver.INFO, logFunctionStub.args[1][1]);
+        });
     });
 
     describe('getEmptyTagObject', function(){
