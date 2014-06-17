@@ -22,12 +22,16 @@ Install globally
 `sudo npm install -g git://github.com/raultm/semver`
 
 Uninstall if you don't want to use it anymore
+
 `sudo npm -g rm gitsm`
 
 To use it go to a project with a git repo.
-`gitsm`
+
+`gitsm` or `gitsm -p` - By default PATCH version
 will check your last git tag, if it looks like a tag gitsm calculate the patch for it `0.5.2 -> 0.5.3`
-`gitsm -m` if you want a minor change `v0.5.2 -> v0.6.0
+
+`gitsm -m` if you want a minor change `v0.5.2 -> v0.6.0`
+
 `gitsm -M` if you want a Major change `0.5.2-dev -> v1.0.0-dev`
 
 Tasks
