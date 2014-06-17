@@ -33,6 +33,6 @@ I started with gulpjs, but finally I realized that I don't need it, I can use on
 
 Alfa version
 
-`node semver.js`
+`node gitsm.js`
 
 

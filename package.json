@@ -40,6 +40,6 @@
   },
   "homepage": "https://github.com/raultm/semver",
   "bin": {
-    "gitsm": "./bin/semver.js"
+    "gitsm": "./bin/gitsm.js"
   }
 }
