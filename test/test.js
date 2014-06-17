@@ -169,10 +169,10 @@ describe('AutoSemver', function(){
             assert.equal(semver.MAJOR, calculateNextVersionSpy.lastCall.args[1]);
         });
 
-        it('should log the new TagObject as INFO', function(){
+        it('should log the new TagObject as INFO with custom message', function(){
             semver.run(projectPath, semver.MAJOR);
             assert.equal(true, logFunctionStub.calledOnce);
-            assert.equal('1.0.0', logFunctionStub.lastCall.args[0]);
+            assert.equal(semver.nextTagMessage + '1.0.0', logFunctionStub.lastCall.args[0]);
             assert.equal(semver.INFO, logFunctionStub.lastCall.args[1]);
         });
 
