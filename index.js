@@ -31,6 +31,7 @@ autosemver = {
         if(!typeOfNewVersion) { typeOfNewVersion = this.PATCH; }
         var tagObject = this.getLastTag(cwd);
         var newTagObject = this.calculateNextVersion(tagObject, typeOfNewVersion);
+        this.log(newTagObject.tag, this.INFO);
         this.applyNewTag(cwd, newTagObject);
         this.releaseNewTag(cwd, newTagObject);
     },
