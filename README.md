@@ -14,9 +14,25 @@ I think the versioning by git tags could be easy to handle and don't affects the
 
 Using the idea expose in [Semantic Version](http://semver.org/)
 
+Install & Using it (Nodejs required)
+------------------------------------
+I work on a machine with MacOS, but I guess it could work nice in Unix. Windows? Need to check it out, but not now
+
+Install globally
+`sudo npm install -g git://github.com/raultm/semver`
+
+Uninstall if you don't want to use it anymore
+`sudo npm -g rm gitsm`
+
+To use it go to a project with a git repo.
+`gitsm`
+will check your last git tag, if it looks like a tag gitsm calculate the patch for it `0.5.2 -> 0.5.3`
+`gitsm -m` if you want a minor change `v0.5.2 -> v0.6.0
+`gitsm -M` if you want a Major change `0.5.2-dev -> v1.0.0-dev`
+
 Tasks
 -----
-1. Get the last tag version `git describe`
+1. Get the last tag version `git describe --long`
 2. Handle the version with regex `/^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/` [regex checker](http://regex101.com/r/fT7bX6)
 3. Ask if the new version is major, minor or patch (prompt? No, finally must be an arg)
 4. Check README. If no diff encourage to fill in if major/minor
