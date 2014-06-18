@@ -28,7 +28,8 @@ Uninstall if you don't want to use it anymore
 To use it go to a project with a git repo.
 
 `gitsm` or `gitsm -p` - By default PATCH version
-will check your last git tag, if it looks like a tag gitsm calculate the patch for it `0.5.2 -> 0.5.3`
+
+Will check your last git tag, if it looks like a tag gitsm calculate the patch for it `0.5.2 -> 0.5.3`
 
 `gitsm -m` if you want a minor change `v0.5.2 -> v0.6.0`
 
