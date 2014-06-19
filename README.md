@@ -50,10 +50,10 @@ CLI
 ----
 Think in same behaviour that gulp, CLI. Install from npm with -g. This way the script may be called from anywhere
 
+BEGINNING WITH GULPJS
+----------------------
+
 I started with gulpjs, but finally I realized that I don't need it, I can use only nodejs for my porpuse.
 
-Alfa version
-
-`node gitsm.js`
 
 
