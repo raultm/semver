@@ -35,6 +35,11 @@ Will check your last git tag, if it looks like a tag gitsm calculate the patch f
 
 `gitsm -M` if you want a Major change `0.5.2-dev -> v1.0.0-dev`
 
+STATUS
+-------
+
+Include more log messages and release as beta version
+
 Tasks
 -----
 1. Get the last tag version `git describe --long`
