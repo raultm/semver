@@ -50,7 +50,14 @@ autosemver = {
         this.run(params.cwd, params.typeOfNewVersion);
     },
     help: function(){
-        this.log();
+        this.log("-----------------------------");
+        this.log("  HELP MESSAGE");
+        this.log("-----------------------------");
+        this.log("");
+        this.log("  -h This Help Message");
+        this.log("  -p Apply Patch Version");
+        this.log("  -m Apply Minor Version");
+        this.log("  -M Apply Major Version");
     },
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }

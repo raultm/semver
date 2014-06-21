@@ -158,7 +158,7 @@ describe('AutoSemver', function(){
 
         it('should log Help Message', function(){
             semver.help();
-            assert.equal(1, logFunctionStub.callCount);
+            assert.equal(true, logFunctionStub.callCount > 1);
         });
     });
 
