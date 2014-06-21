@@ -50,7 +50,7 @@ autosemver = {
         this.run(params.cwd, params.typeOfNewVersion);
     },
     help: function(){
-
+        this.log();
     },
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }

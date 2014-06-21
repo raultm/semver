@@ -150,6 +150,18 @@ describe('AutoSemver', function(){
         });
     });
 
+    describe('help', function(){
+        var logFunctionStub;
+        beforeEach(function(){
+            logFunctionStub = sinon.stub(semver, "log", function(){ return true; });
+        })
+
+        it('should log Help Message', function(){
+            semver.help();
+            assert.equal(1, logFunctionStub.callCount);
+        });
+    });
+
     describe('clirun', function(){
         var parseArgvParamsStub;
         var runStub;
