@@ -16,6 +16,7 @@ autosemver = {
     defaultCLIValues: {
         cwd: './',
         typeOfNewVersion: 'p',
+        help: false,
     },
     lastTagMessage: 'The last tag used is ',
     nextTagMessage: 'The next tag to release is ',

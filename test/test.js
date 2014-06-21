@@ -39,6 +39,7 @@ describe('AutoSemver', function(){
         it('should have defaultValues', function(){
             assert.equal(semver.PATCH, semver.defaultCLIValues.typeOfNewVersion);
             assert.equal('./', semver.defaultCLIValues.cwd);
+            assert.equal(false, semver.defaultCLIValues.help);
         })
 
         it('should have logfunction attribute console.log by default', function(){
