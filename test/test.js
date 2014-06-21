@@ -471,5 +471,9 @@ describe('AutoSemver', function(){
             assert.equal(gitroot, params.cwd);
         })
 
+        it('should return detect user is asking for command help -h', function(){
+            assert.equal(true, semver.parseArgvParams(['node', '/path/to/gitsm', '-h'], './').help);
+        })
+
     });
 })

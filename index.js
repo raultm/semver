@@ -49,6 +49,7 @@ autosemver = {
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }
         var customValues = {};
+        if(options.indexOf("-" + this.HELP) != -1){ customValues.help = true; }
         if(options.indexOf("-" + this.MAJOR) != -1){ customValues.typeOfNewVersion = this.MAJOR; }
         if(options.indexOf("-" + this.MINOR) != -1){ customValues.typeOfNewVersion = this.MINOR; }
         if(options.indexOf("-" + this.PATCH) != -1){ customValues.typeOfNewVersion = this.PATCH; }
