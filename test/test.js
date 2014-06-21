@@ -32,6 +32,10 @@ describe('AutoSemver', function(){
             assert.equal('p', semver.PATCH);
         })
 
+        it('should have Help(h)', function(){
+            assert.equal('h', semver.HELP);
+        })
+
         it('should have defaultValues', function(){
             assert.equal(semver.PATCH, semver.defaultCLIValues.typeOfNewVersion);
             assert.equal('./', semver.defaultCLIValues.cwd);

@@ -7,6 +7,7 @@ autosemver = {
     PATCH: 'p',
     MINOR: 'm',
     MAJOR: 'M',
+    HELP: 'h',
     VERBOSE: 3,
     WARNING: 2,
     INFO: 1,
