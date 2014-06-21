@@ -44,7 +44,13 @@ autosemver = {
     },
     clirun: function(){
         var params = this.parseArgvParams(process.argv, process.cwd());
+        if(params.help === true){
+            return this.help();
+        }
         this.run(params.cwd, params.typeOfNewVersion);
+    },
+    help: function(){
+
     },
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }
