@@ -28,11 +28,19 @@ Uninstall if you don't want to use it anymore
 To use it go to a project with a git repo.
 
 `gitsm` or `gitsm -p` - By default PATCH version
-will check your last git tag, if it looks like a tag gitsm calculate the patch for it `0.5.2 -> 0.5.3`
+
+Will check your last git tag, if it looks like a tag gitsm calculate the patch for it `0.5.2 -> 0.5.3`
 
 `gitsm -m` if you want a minor change `v0.5.2 -> v0.6.0`
 
 `gitsm -M` if you want a Major change `0.5.2-dev -> v1.0.0-dev`
+
+STATUS
+-------
+
+Include more log messages and release as beta version.
+
+Adding -h option in CLI.
 
 Tasks
 -----
@@ -49,10 +57,10 @@ CLI
 ----
 Think in same behaviour that gulp, CLI. Install from npm with -g. This way the script may be called from anywhere
 
+BEGINNING WITH GULPJS
+----------------------
+
 I started with gulpjs, but finally I realized that I don't need it, I can use only nodejs for my porpuse.
 
-Alfa version
-
-`node gitsm.js`
 
 
