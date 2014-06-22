@@ -38,7 +38,9 @@ Will check your last git tag, if it looks like a tag gitsm calculate the patch f
 STATUS
 -------
 
-Include more log messages and release as beta version
+Include more log messages and release as beta version.
+
+Adding -h option in CLI.
 
 Tasks
 -----
