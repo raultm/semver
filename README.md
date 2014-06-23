@@ -6,7 +6,7 @@ The idea is to manage semi automatically the versioning of a software product.
 
 Every software development has it owns lyfecicle. Handling the versioning system would help the devs to invest more time in the software itself.
 
-The versioning involves some repetitive tasks. If we can develop a system than guide this tasks we'll get a profitable product.
+The versioning involves some repetitive tasks. If we can develop a system that guide this tasks we'll get a profitable product.
 
 How
 ----
