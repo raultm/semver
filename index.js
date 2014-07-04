@@ -60,6 +60,7 @@ autosemver = {
         this.log("  -p Apply Patch Version");
         this.log("  -m Apply Minor Version");
         this.log("  -M Apply Major Version");
+        this.log('  -l Set Commit message(eg. gitsm -l "Behaviour Feature")');
     },
     parseArgvParams: function(options, cwd){
         if(!options || !cwd || options.length < 2){ return false; }
