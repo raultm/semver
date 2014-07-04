@@ -77,7 +77,7 @@ describe('AutoSemver', function(){
         var applyNewTagStub;
         var logFunctionStub;
         var releaseNewTagStub;
-        var logCallCountIfAllOk = 3;
+        var logCallCountIfAllOk = 4;
         beforeEach(function(){
             getLastTagStub = sinon.stub(semver, "getLastTag", function(cwd){ return semver.getEmptyTagObject(); });
             applyNewTagStub = sinon.spy(semver, "applyNewTag", function(){ return true; });
@@ -155,6 +155,14 @@ describe('AutoSemver', function(){
             assert.equal(logCallCountIfAllOk, logFunctionStub.callCount);
             assert.equal(semver.versionFileUpdated, logFunctionStub.args[2][0]);
             assert.equal(semver.INFO, logFunctionStub.args[2][1]);
+        });
+
+        it('should log that commit has been created and show label for this commit', function(){
+            semver.run(projectPath, semver.MAJOR);
+            assert.equal(logCallCountIfAllOk, logFunctionStub.callCount);
+            console.log(logFunctionStub.args[3]);
+            assert.equal(semver.commitCreatedMessage + semver.commitMessage, logFunctionStub.args[3][0]);
+            assert.equal(semver.INFO, logFunctionStub.args[3][1]);
         });
     });
 

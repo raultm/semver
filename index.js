@@ -23,6 +23,7 @@ autosemver = {
     nextTagMessage: 'The next tag to release is ',
     commitMessage: 'New Release',
     versionFileUpdated: 'The VERSION file was updated with the new version',
+    commitCreatedMessage: 'A new commit has been created: ',
     logFunction: console.log,
     debug: 2,
     log: function(message, level){
@@ -43,6 +44,7 @@ autosemver = {
         this.applyNewTag(cwd, newTagObject);
         this.log(this.versionFileUpdated, this.INFO);
         this.releaseNewTag(cwd, newTagObject);
+        this.log(this.commitCreatedMessage + this.commitMessage, this.INFO);
     },
     clirun: function(){
         var params = this.parseArgvParams(process.argv, process.cwd());
