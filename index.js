@@ -68,6 +68,10 @@ autosemver = {
         if(options.indexOf("-" + this.MAJOR) != -1){ customValues.typeOfNewVersion = this.MAJOR; }
         if(options.indexOf("-" + this.MINOR) != -1){ customValues.typeOfNewVersion = this.MINOR; }
         if(options.indexOf("-" + this.PATCH) != -1){ customValues.typeOfNewVersion = this.PATCH; }
+        var labelOptionIndex = options.indexOf("-" + this.LABEL);
+        if(labelOptionIndex != -1 && options[labelOptionIndex + 1]){
+            this.commitMessage = options[labelOptionIndex + 1];
+        }
         var getGitRoot = this.exec('git rev-parse --show-toplevel', cwd);
         customValues.cwd = getGitRoot.stdout;
         var cliValues = extend(this.defaultCLIValues, customValues);

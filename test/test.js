@@ -510,5 +510,11 @@ describe('AutoSemver', function(){
             assert.equal("New Release", semver.commitMessage);
         })
 
+        it('should change default commitMessage if -l with next Param', function(){
+            // gitsm -l "Nueva Versión"
+            semver.parseArgvParams(['node', '/path/to/gitsm', '-l', 'Nueva Versión'], './')
+            assert.equal("Nueva Versión", semver.commitMessage);
+        })
+
     });
 })
