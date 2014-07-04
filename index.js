@@ -8,6 +8,7 @@ autosemver = {
     MINOR: 'm',
     MAJOR: 'M',
     HELP: 'h',
+    LABEL: 'l',
     VERBOSE: 3,
     WARNING: 2,
     INFO: 1,
@@ -20,6 +21,7 @@ autosemver = {
     },
     lastTagMessage: 'The last tag used is ',
     nextTagMessage: 'The next tag to release is ',
+    commitMessage: 'New Release',
     versionFileUpdated: 'The VERSION file was updated with the new version',
     logFunction: console.log,
     debug: 2,
@@ -134,7 +136,7 @@ autosemver = {
         if(!cwd || !newTagObject){ return false; }
         var tagCommand = "git tag " + newTagObject.tag + " -m 'New Release " + newTagObject.tag + "'";
         this.exec('git add VERSION', cwd);
-        this.exec('git commit -m "New Release"', cwd);
+        this.exec('git commit -m "' + this.commitMessage + '"', cwd);
         this.exec(tagCommand, cwd);
         return true;
     },

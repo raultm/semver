@@ -36,6 +36,10 @@ describe('AutoSemver', function(){
             assert.equal('h', semver.HELP);
         })
 
+        it('should have Label(l) for commit message', function(){
+            assert.equal('l', semver.LABEL);
+        })
+
         it('should have defaultValues', function(){
             assert.equal(semver.PATCH, semver.defaultCLIValues.typeOfNewVersion);
             assert.equal('./', semver.defaultCLIValues.cwd);
@@ -60,6 +64,10 @@ describe('AutoSemver', function(){
 
         it('should have attribute for INFO equal to 1', function(){
             assert.equal(1, semver.INFO);
+        })
+
+        it('should have attribute for commitMessage equal to "New Release"', function(){
+            assert.equal("New Release", semver.commitMessage);
         })
     });
 
