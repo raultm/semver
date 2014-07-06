@@ -298,6 +298,12 @@ describe('AutoSemver', function(){
     });
 
     describe('calculateNextVersion', function(){
+        it('should return emptyTagObject if no version in param', function(){
+                var tagObject = semver.calculateNextVersion();
+                assert.equal(semver.getEmptyTagObject().tag, tagObject.tag);
+        });
+
+
         it('should increment patch number', function(){
             var currentVersion = semver.getEmptyTagObject();
             var tagObject = semver.calculateNextVersion(currentVersion);
