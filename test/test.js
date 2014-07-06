@@ -303,6 +303,11 @@ describe('AutoSemver', function(){
                 assert.equal(semver.getEmptyTagObject().tag, tagObject.tag);
         });
 
+        it('should return 1.0.0 if no version but Major param', function(){
+            var tagObject = semver.calculateNextVersion(false, semver.MAJOR);
+            assert.equal("1.0.0", tagObject.tag);
+        });
+
 
         it('should increment patch number', function(){
             var currentVersion = semver.getEmptyTagObject();

@@ -90,11 +90,11 @@ autosemver = {
         }
     },
     calculateNextVersion: function(tagObject, typeOfNewVersion){
-        if(!tagObject){
-            console.log("calculateNextVersion tag false");
+        if(!tagObject) {
             tagObject = this.getEmptyTagObject();
-            return tagObject;
-
+            if (typeOfNewVersion !== this.MAJOR) {
+                return tagObject;
+            }
         }
         var newTagObject = extend({}, tagObject);
         if(!typeOfNewVersion){ typeOfNewVersion = this.PATCH; }
