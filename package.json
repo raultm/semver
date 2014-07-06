@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha -R spec"
   },
-  "name": "gitsm",
+  "name": "gitsv",
   "description": "Tool to handle semver upgrades using git tags.",
   "version": "0.1.0",
   "main": "index.js",
@@ -40,6 +40,6 @@
   },
   "homepage": "https://github.com/raultm/semver",
   "bin": {
-    "gitsm": "./bin/gitsm.js"
+    "gitsv": "./bin/gitsv.js"
   }
 }

@@ -482,45 +482,45 @@ describe('AutoSemver', function(){
             assert.equal(false, semver.parseArgvParams([]));
         })
 
-        it('should return false if the second param of argv doesnt have "gitsm" string which is the command', function(){
+        it('should return false if the second param of argv doesnt have "gitsv" string which is the command', function(){
             assert.equal(false, semver.parseArgvParams([], './'));
         })
 
         it('should return semverDefaulCLIValues if empty argv', function(){
-            assert.equal(semver.defaultCLIValues, semver.parseArgvParams(['node', '/path/to/gitsm'], './'));
+            assert.equal(semver.defaultCLIValues, semver.parseArgvParams(['node', '/path/to/gitsv'], './'));
         })
 
         it('should return "m" (Minor version) if "-m" in argv array', function(){
-            assert.equal(semver.MINOR, semver.parseArgvParams(['node', '/path/to/gitsm', '-m'], './').typeOfNewVersion);
+            assert.equal(semver.MINOR, semver.parseArgvParams(['node', '/path/to/gitsv', '-m'], './').typeOfNewVersion);
         })
 
         it('should return "M" (Major version) if "-M" in argv array', function(){
-            assert.equal(semver.MAJOR, semver.parseArgvParams(['node', '/path/to/gitsm', '-M'], './').typeOfNewVersion);
+            assert.equal(semver.MAJOR, semver.parseArgvParams(['node', '/path/to/gitsv', '-M'], './').typeOfNewVersion);
         })
 
         it('should return "p" (Patch version) if "-p" in argv array. Should choose least version type', function(){
-            assert.equal(semver.PATCH, semver.parseArgvParams(['node', '/path/to/gitsm', '-M', '-p'], './').typeOfNewVersion);
+            assert.equal(semver.PATCH, semver.parseArgvParams(['node', '/path/to/gitsv', '-M', '-p'], './').typeOfNewVersion);
         })
 
         it('should search for git root directory even if we are in subfolder', function(){
-            var params = semver.parseArgvParams(['node', '/path/to/gitsm', '-M', '-p'], './');
+            var params = semver.parseArgvParams(['node', '/path/to/gitsv', '-M', '-p'], './');
             assert.equal(1, execStub.callCount);
             assert.equal('git rev-parse --show-toplevel', execStub.args[0][0]);
             assert.equal(gitroot, params.cwd);
         })
 
         it('should return detect user is asking for command help -h', function(){
-            assert.equal(true, semver.parseArgvParams(['node', '/path/to/gitsm', '-h'], './').help);
+            assert.equal(true, semver.parseArgvParams(['node', '/path/to/gitsv', '-h'], './').help);
         })
 
         it('should not change default commitMessage if no -l option', function(){
-            semver.parseArgvParams(['node', '/path/to/gitsm', '-h'], './')
+            semver.parseArgvParams(['node', '/path/to/gitsv', '-h'], './')
             assert.equal("New Release", semver.commitMessage);
         })
 
         it('should change default commitMessage if -l with next Param', function(){
-            // gitsm -l "Nueva Versión"
-            semver.parseArgvParams(['node', '/path/to/gitsm', '-l', 'Nueva Versión'], './')
+            // gitsv -l "Nueva Versión"
+            semver.parseArgvParams(['node', '/path/to/gitsv', '-l', 'Nueva Versión'], './')
             assert.equal("Nueva Versión", semver.commitMessage);
         })
 
