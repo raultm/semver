@@ -8,7 +8,7 @@ Only a human can state that a software must declare a new semantic version, but 
 What `gitsv` do?
 ---------------
 
-When you want declare a new version `gitsv` find your last [semantic version](http://semver.org/), calculate the new version, create a commit changing the VERSION file and adding a tag with this the new version.
+When you want declare a new version `gitsv` finds your last [semantic version](http://semver.org/), calculate the new version, create a commit changing the VERSION file and adding a tag with this the new version.
 
 What can I do with `gitsv`?
 -------------------------
@@ -66,7 +66,9 @@ But you can benefit from this file, you can know what version the software is ev
 
 You can use it to avoid problems with css/js cache. Using hashing and adding a version param
 
+```
 <script type='text/javascript' src='https://project.com/js/app.js?version=a9jhgy7kl'/>
+```
 
 If the version hash change in each new semantic version you must not worry about users' cache anymore.
 
