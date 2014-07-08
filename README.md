@@ -1,66 +1,72 @@
-SEMI AUTO SEMVER
-----------------
+GITSV - GIT Semantic Versioning 
+===============================
+
 [![Build Status](https://travis-ci.org/raultm/semver.svg?branch=master)](https://travis-ci.org/raultm/semver)
 
-The idea is to manage semi automatically the versioning of a software product. 
+Only a human can state that a software must declare a new semantic version, but this human can have a tool to ease this task. `gitsv` pretend to be a git approach to this tool base its functionality in git tags.
 
-Every software development has it owns lyfecicle. Handling the versioning system would help the devs to invest more time in the software itself.
+What `gitsv` do?
+---------------
 
-The versioning involves some repetitive tasks. If we can develop a system that guide this tasks we'll get a profitable product.
+When you want declare a new version `gitsv` find your last [semantic version](http://semver.org/), calculate the new version, create a commit changing the VERSION file and adding a tag with this the new version.
 
-How
-----
-I think the versioning by git tags could be easy to handle and don't affects the history of the repo.
+What can I do with `gitsv`?
+-------------------------
 
-Using the idea expose in [Semantic Version](http://semver.org/)
+You can declare your desire  of a new version, you must declare what type of version do you want Major, minor o patch. `gitsv` allows you to define a message to add to the commit that will be created.
 
-Install & Using it (Nodejs required)
-------------------------------------
-I work on a machine with MacOS, but I guess it could work nice in Unix. Windows? Need to check it out, but not now
+What kind of version scheme need to use?
+----------------------------------------
 
-Install globally
+`gitsv` detects any kind of semantic version when the label doesn't have a dot in the prepend or the append. Let's see a table with different schemes you can use and the result after apply `gitsv`
+
+|               | Major         | Minor         | Patch         |
+|---------------|---------------|---------------|---------------|
+| 0.1.0         | 1.0.0         | 0.2.0         | 0.1.1         |
+| v1.3.7        | v2.0.0        | v1.4.0        | v1.3.8        |
+| v2.5.2-master | v3.0.0-master | v2.6.0-master | v2.5.3-master |
+| 3.0.0beta     | 4.0.0beta     | 3.1.0beta     | 3.0.0beta     |
+
+ 
+How can I use it?
+------------------
+
+`gitsv` needs nodes to work. Its is easy to install and if you think is not as useful as you think is very easy to uninstall so try it!
+
+Install
+
 `sudo npm install -g git://github.com/raultm/semver`
 
-Uninstall if you don't want to use it anymore
+Uninstall
 
 `sudo npm -g rm gitsv`
 
-To use it go to a project with a git repo.
+Options
+-M Apply Major version
+-m Apply minor version
+-p Apply patch version
+-l "Commit  message"
+-h Show help
 
-`gitsv` or `gitsv -p` - By default PATCH version
+Examples
 
-Will check your last git tag, if it looks like a tag gitsv calculate the patch for it `0.5.2 -> 0.5.3`
+`gitsv -M -l "Version with new API, new design & new core"`
 
-`gitsv -m` if you want a minor change `v0.5.2 -> v0.6.0`
+`gitsv -m -l "Adding Stripe payments"`
 
-`gitsv -M` if you want a Major change `0.5.2-dev -> v1.0.0-dev`
+`gitsv -p -l "Bugfix weird behavior in Email feature"`
 
-STATUS
--------
+VERSION file
+------------
+In each new version gitsv create or modify the VERSION file in the root folder.
 
-Include more log messages and release as beta version.
+In terms of security you must not allow to view this file, this version can help to unwanted attackers to know which exploits can use to use against your product.
 
-Adding -h option in CLI.
+But you can benefit from this file, you can know what version the software is even if you have deleted the git repo.
 
-Tasks
------
-1. Get the last tag version `git describe --long`
-2. Handle the version with regex `/^(.*(([\d]+)\.([\d]+)\.([\d]+)).*)-[\d]+-\S+/` [regex checker](http://regex101.com/r/fT7bX6)
-3. Ask if the new version is major, minor or patch (prompt? No, finally must be an arg)
-4. Check README. If no diff encourage to fill in if major/minor
-5. Check if exists Changelog, if no diff encourage to fill in if major/minor/patch. Maybe use commit messages as version changelof.
-6. Add or modify a file VERSION with the new version. The dev can use this in his/her product.
-7. Create new commit with these changes and add the tag.
-8. Maybe we can ask if the dev want to pull to a specific remote
+You can use it to avoid problems with css/js cache. Using hashing and adding a version param
 
-CLI
-----
-Think in same behaviour that gulp, CLI. Install from npm with -g. This way the script may be called from anywhere
+<script type='text/javascript' src='https://project.com/js/app.js?version=a9jhgy7kl'/>
 
-BEGINNING WITH GULPJS
-----------------------
-
-I started with gulpjs, but finally I realized that I don't need it, I can use only nodejs for my porpuse.
-
-
+If the version hash change in each new semantic version you must not worry about users' cache anymore.
 
