@@ -112,7 +112,7 @@ autosemver = {
             newTagObject.patch = 0;
         }
         newTagObject.version = newTagObject.major + "." + newTagObject.minor + "." + newTagObject.patch;
-        newTagObject.tag = newTagObject.version;
+        newTagObject.tag = newTagObject.tag.replace(tagObject.version, newTagObject.version);
         return newTagObject;
     },
     matchVersionTagFromGitDescribe: function(versionString){
