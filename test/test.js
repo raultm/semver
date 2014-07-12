@@ -358,20 +358,6 @@ describe('AutoSemver', function(){
             assert.equal('0', tagObject.patch);
         });
 
-        it('should mantain prepends in git tag', function(){
-            var tagObject = semver.matchVersionTagFromGitDescribe('v0.1.0-5-md5commit');
-            var newTagObject = semver.calculateNextVersion(tagObject, semver.PATCH);
-            assert.equal('v0.1.1', newTagObject.tag);
-            assert.equal('0.1.1', newTagObject.version);
-        })
-
-        it('should mantain appends in git tag', function(){
-            var tagObject = semver.matchVersionTagFromGitDescribe('0.1.0test-5-md5commit');
-            var newTagObject = semver.calculateNextVersion(tagObject, semver.PATCH);
-            assert.equal('0.1.1test', newTagObject.tag);
-            assert.equal('0.1.1', newTagObject.version);
-        })
-
         it('should mantain prepends/appends in git tag', function(){
             var tagObject = semver.matchVersionTagFromGitDescribe('v0.1.0test-5-md5commit');
             var newTagObject = semver.calculateNextVersion(tagObject, semver.PATCH);
